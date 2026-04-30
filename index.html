@@ -433,19 +433,74 @@
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<!-- 导航栏 -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#" class="logo">失踪的<span>建文帝</span></a>
-            <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于图库</a>
-                <a href="#works">作品展示</a>
-                <a href="#service">服务范围</a>
-                <a href="#contact">联系我们</a>
+<!-- 导航栏（已带下拉子链接） -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="#" class="logo">失踪的<span>建文帝</span></a>
+        <div class="nav-links">
+            <a href="#home">首页</a>
+            <a href="#about">关于图库</a>
+
+            <!-- 下拉菜单：作品展示 -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">作品展示 ▾</a>
+                <div class="dropdown-content">
+                    <a href="rixi.html">日系写真</a>
+                    <a href="gangfeng.html">港风写真</a>
+                    <a href="qinglv.html">情侣纪实</a>
+                    <a href="qinzi.html">家庭亲子</a>
+                </div>
             </div>
+
+            <a href="#service">服务范围</a>
+            <a href="#contact">联系我们</a>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<style>
+/* 下拉菜单样式 直接用 */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+.dropbtn {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 16px;
+}
+.dropbtn:hover {
+    color: #e63946;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    background: #fff;
+    min-width: 160px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    z-index: 9999;
+}
+.dropdown-content a {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-weight: normal;
+}
+.dropdown-content a:hover {
+    background: #f5f5f5;
+    color: #e63946;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
 
     <!-- 首屏banner -->
     <section class="banner" id="home">
@@ -476,65 +531,69 @@
         </div>
     </section>
 
-    <!-- 作品展示（已填好标题、标签、图片） -->
-    <section class="works" id="works">
-        <div class="works-container">
-            <div class="works-title">
-                <h2 class="section-title">建文图库作品</h2>
-            </div>
-            <div class="works-grid">
-                <!-- 作品1：日系清新写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240408/15/1024x768_1683885672841.jpg" alt="日系清新写真">
-                    <div class="work-info">
-                        <h3>日系清新写真·夏禾</h3>
-                        <p>标签：日系、清新、少女、治愈 | 高清原图可授权</p>
-                    </div>
-                </div>
-                <!-- 作品2：复古港风写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240506/16/1024x768_1683885672841.jpg" alt="复古港风写真">
-                    <div class="work-info">
-                        <h3>复古港风写真·旧梦</h3>
-                        <p>标签：港风、复古、氛围感、成熟 | 高清原图可授权</p>
-                    </div>
-                </div>
-                <!-- 作品3：情侣纪实写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240322/17/1024x768_1683885672841.jpg" alt="情侣纪实写真">
-                    <div class="work-info">
-                        <h3>情侣纪实写真·相伴</h3>
-                        <p>标签：情侣、纪实、温柔、日常 | 高清原图可授权</p>
-                    </div>
-                </div>
-               <!-- 作品4：极简高级写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240415/14/1024x768_1683885672841.jpg" alt="极简高级写真">
-                    <div class="work-info">
-                        <h3>极简高级写真·留白</h3>
-                        <p>标签：极简、高级、气质、纯色背景 | 高清原图可授权</p>
-                    </div>
-                </div>
-               <!-- 作品5：家庭纪实写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240510/19/1024x768_1683885672841.jpg" alt="家庭纪实写真">
-                    <div class="work-info">
-                        <h3>家庭纪实写真·暖居</h3>
-                        <p>标签：家庭、亲子、纪实、温暖 | 高清原图可授权</p>
-                    </div>
-                </div>
-               <!-- 作品6：毕业写真 -->
-                <div class="work-item">
-                    <img src="https://img.ixintu.com/upload/photo/20240602/13/1024x768_1683885672841.jpg" alt="毕业写真">
-                    <div class="work-info">
-                        <h3>毕业写真·致青春</h3>
-                        <p>标签：毕业、校园、青春、多人合拍 | 高清原图可授权</p>
-                    </div>
-                </div>
-            </div>
+   <!-- 作品展示（已带点击子链接） -->
+<section class="works" id="works">
+    <div class="works-container">
+        <div class="works-title">
+            <h2 class="section-title">建文帝的图库作品</h2>
         </div>
-    </section>
+        <div class="works-grid">
 
+            <!-- 作品1 点图可跳转 -->
+            <div class="work-item">
+                <a href="rixi.html">
+                    <img src="https://picsum.photos/id/65/800/1000" alt="日系清新写真">
+                </a>
+                <div class="work-info">
+                    <h3><a href="rixi.html">日系清新写真·夏禾</a></h3>
+                    <p>标签：日系、清新、少女、治愈</p>
+                </div>
+            </div>
+
+            <!-- 作品2 -->
+            <div class="work-item">
+                <a href="gangfeng.html">
+                    <img src="https://picsum.photos/id/91/800/1000" alt="复古港风写真">
+                </a>
+                <div class="work-info">
+                    <h3><a href="gangfeng.html">复古港风写真·旧梦</a></h3>
+                    <p>标签：港风、复古、氛围感</p>
+                </div>
+            </div>
+
+            <!-- 作品3 -->
+            <div class="work-item">
+                <a href="qinglv.html">
+                    <img src="https://picsum.photos/id/26/800/1000" alt="情侣纪实写真">
+                </a>
+                <div class="work-info">
+                    <h3><a href="qinglv.html">情侣纪实写真·相伴</a></h3>
+                    <p>标签：情侣、纪实、温柔</p>
+                </div>
+            </div>
+
+            <!-- 作品4 -->
+            <div class="work-item">
+                <a href="qinzi.html">
+                    <img src="https://picsum.photos/id/225/800/1000" alt="家庭亲子纪实">
+                </a>
+                <div class="work-info">
+                    <h3><a href="qinzi.html">家庭纪实写真·暖居</a></h3>
+                    <p>标签：家庭、亲子、温暖</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+/* 作品链接样式 */
+.work-item a {
+    text-decoration: none;
+    color: inherit;
+}
+</style>
     <!-- 服务范围 -->
     <section class="service" id="service">
         <div class="service-title">
