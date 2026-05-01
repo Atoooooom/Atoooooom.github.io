@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foodiesfeed - Free Food Photos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif}
+body{background:#f7f7f7;color:#333;line-height:1.6}
+/* 顶部固定导航 */
+.header{position:fixed;top:0;left:0;right:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);z-index:999}
+.header-inner{max-width:1400px;margin:0 auto;padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:26px;font-weight:700;color:#ff5a3c;text-decoration:none}
+/* 横向可滚动分类栏 */
+.cat-bar{max-width:1400px;margin:0 auto;padding:0 20px;overflow-x:auto;white-space:nowrap;padding-top:88px;padding-bottom:15px}
+.cat-bar::-webkit-scrollbar{height:0}
+.cat-list{display:flex;gap:12px}
+.cat-list a{padding:8px 16px;background:#fff;border:1px solid #eee;border-radius:99px;text-decoration:none;color:#333;font-size:14px;transition:all 0.3s}
+.cat-list a:hover,.cat-list a.active{background:#ff5a3c;color:#fff;border-color:#ff5a3c}
+/* 瀑布流图库 */
+.container{max-width:1400px;margin:0 auto;padding:0 20px 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.05);transition:transform 0.3s}
+.card:hover{transform:translateY(-5px)}
+.card a{text-decoration:none;color:inherit}
+.card img{width:100%;height:200px;object-fit:cover;display:block}
+.card-info{padding:12px}
+.card-title{font-size:14px;margin-bottom:4px;font-weight:500}
+.card-tag{font-size:12px;color:#999}
+/* 响应式适配 */
+@media (max-width:768px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .logo{font-size:22px}
+}
+@media (max-width:480px){
+    .grid{grid-template-columns:1fr}
+    .header-inner{padding:15px 18px}
+    .cat-list a{padding:6px 12px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">Foodiesfeed</a>
+    </div>
+</div>
+
+<div class="cat-bar">
+    <div class="cat-list">
+        <a href="index.html" class="active">Trending</a>
+        <a href="cat-healthy.html">Healthy</a>
+        <a href="cat-bakery.html">Bakery</a>
+        <a href="cat-breakfast.html">Breakfast</a>
+        <a href="cat-pizza.html">Pizza</a>
+        <a href="cat-burger.html">Burger</a>
+        <a href="cat-coffee.html">Coffee</a>
+        <a href="cat-icecream.html">Ice Cream</a>
+        <a href="cat-sushi.html">Sushi</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="grid">
+        <!-- 关联Healthy分类子链接 -->
+        <div class="card">
+            <a href="detail-healthy-fruit-1.html">
+                <img src="https://picsum.photos/id/1080/600/400" alt="Fresh Strawberries">
+                <div class="card-info">
+                    <div class="card-title">Fresh Strawberries</div>
+                    <div class="card-tag">Healthy / Fruit</div>
+                &lt;/div&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        <!-- 关联Bakery分类子链接 -->
+        <div class="card">
+            <a href="detail-bakery-cake-1.html">
+                <img src="https://picsum.photos/id/493/600/400" alt="Strawberry Cake">
+                <div class="card-info">
+                    <div class="card-title">Strawberry Layer Cake</div>
+                    <div class="card-tag">Bakery / Cake</div>
+                </div>
+            &lt;/a&gt;
+        &lt;/div&gt;
+        <!-- 关联Breakfast分类子链接 -->
+        <div class="card">
+            <a href="detail-breakfast-egg-1.html">
+                <img src="https://picsum.photos/id/431/600/400" alt="Egg Breakfast">
+                <div class="card-info">
+                    <div class="card-title">Colorful Egg Breakfast</div>
+                    <div class="card-tag">Breakfast / Egg</div>
+                </div&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        <!-- 关联Pizza分类子链接 -->
+        <div class="card">
+            <a href="detail-pizza-pepperoni-1.html">
+                <img src="https://picsum.photos/id/488/600/400" alt="Pepperoni Pizza">
+                <div class="card-info">
+                    <div class="card-title">Pepperoni Pizza</div>
+                    <div class="card-tag">Pizza / Pepperoni</div>
+                </div>
+            &lt;/a&gt;
+        &lt;/div&gt;
+        <!-- 关联Burger分类子链接 -->
+        <div class="card">
+            <a href="detail-burger-cheese-1.html">
+                <img src="https://picsum.photos/id/292/600/400" alt="Cheese Burger">
+                <div class="card-info">
+                    <div class="card-title">Juicy Cheese Burger</div>
+                    <div class="card-tag">Burger / Cheese</div>
+                </div>
+            </a>
+        &lt;/div&gt;
+        <!-- 关联Coffee分类子链接 -->
+        <div class="card">
+            <a href="detail-coffee-latte-1.html">
+                <img src="https://picsum.photos/id/429/600/400" alt="Latte Coffee">
+                <div class="card-info">
+                    <div class="card-title">Creamy Latte Coffee</div>
+                    <div class="card-tag">Coffee / Latte</div>
+                </div>
+            </a>
+        </div&gt;
+        <!-- 关联Ice Cream分类子链接 -->
+        <div class="card">
+            <a href="detail-icecream-vanilla-1.html">
+                <img src="https://picsum.photos/id/506/600/400" alt="Vanilla Ice Cream">
+                <div class="card-info">
+                    <div class="card-title">Vanilla Ice Cream</div>
+                    <div class="card-tag">Ice Cream / Vanilla</div>
+                </div>
+            </a>
+        </div&gt;
+        <!-- 关联Sushi分类子链接 -->
+        <div class="card">
+            <a href="detail-sushi-salmon-1.html">
+                <img src="https://picsum.photos/id/164/600/400" alt="Salmon Sushi">
+                <div class="card-info">
+                    <div class="card-title">Fresh Salmon Sushi</div>
+                    <div class="card-tag">Sushi / Salmon</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
