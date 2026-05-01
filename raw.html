@@ -3,118 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foodiesfeed - Free Food Photos</title>
+<title>Foodiesfeed 美食图库</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif}
-body{background:#f8f9fa;color:#222}
-.header{background:#fff;border-bottom:1px solid #eee;padding:16px 20px;position:sticky;top:0;z-index:10}
-.header .inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:22px;font-weight:700;color:#e53935;text-decoration:none}
-.nav{display:flex;gap:14px;flex-wrap:wrap;max-width:1400px;margin:16px auto;padding:0 20px}
-.nav a{padding:8px 12px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:14px}
-.nav a:hover{border-color:#e53935;color:#e53935}
-.container{max-width:1400px;margin:20px auto;padding:0 20px}
-.section-title{font-size:18px;margin:20px 0 12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.item{border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.item img{width:100%;height:200px;object-fit:cover}
-.info{padding:10px}
-.title{font-size:14px;margin-bottom:4px}
-.tag{display:inline-block;background:#f1f1f1;color:#666;font-size:12px;padding:2px 6px;border-radius:4px;margin-right:4px}
-.footer{text-align:center;padding:30px 20px;background:#fff;border-top:1px solid #eee;margin-top:40px;font-size:13px;color:#666}
-@media(max-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+}
+body {
+    background: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 顶部固定滚动导航栏 */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 999;
+}
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff5722;
+    text-decoration: none;
+}
+
+/* 分类菜单栏 */
+.category-nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    padding-top: 90px; /* 避开固定导航 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.category-nav a {
+    padding: 7px 14px;
+    background: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.category-nav a:hover {
+    background: #ff5722;
+    color: #fff;
+}
+
+/* 容器 & 瀑布流网格 */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+.section-title {
+    font-size: 20px;
+    margin: 20px 0;
+    font-weight: 600;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card a {
+    text-decoration: none;
+    color: inherit;
+}
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+.card-info {
+    padding: 12px;
+}
+.card-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+.tag {
+    display: inline-block;
+    font-size: 12px;
+    background: #f1f1f1;
+    color: #777;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-right: 4px;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background: #fff;
+    font-size: 13px;
+    color: #888;
+}
+
+/* 响应式 */
+@media (max-width:768px){
+    .grid {grid-template-columns: repeat(2,1fr);}
+}
+@media (max-width:480px){
+    .grid {grid-template-columns: 1fr;}
+    .header-inner {padding:15px;}
+}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="inner">
-    <a href="#" class="logo">Foodiesfeed</a>
-  </div>
+<!-- 顶部滚动固定导航栏 -->
+<div class="top-header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">Foodiesfeed</a>
+    </div>
 </div>
 
-<div class="nav">
-  <a href="#">Trending</a>
-  <a href="#">Healthy</a>
-  <a href="#">Bakery</a>
-  <a href="#">Breakfast</a>
-  <a href="#">Pizza</a>
-  <a href="#">Burger</a>
-  <a href="#">Coffee</a>
-  <a href="#">Ice Cream</a>
-  <a href="#">Sushi</a>
+<!-- 分类菜单（子链接入口） -->
+<div class="category-nav">
+    <a href="index.html">全部</a>
+    <a href="breakfast.html">早餐</a>
+    <a href="pizza.html">披萨</a>
+    <a href="burger.html">汉堡</a>
+    <a href="coffee.html">咖啡</a>
+    <a href="dessert.html">甜点</a>
+    <a href="fruit.html">水果</a>
 </div>
 
+<!-- 图库主体 -->
 <div class="container">
-  <div class="section-title">Trending Free Food Photos</div>
-  <div class="grid">
+    <h2 class="section-title">热门美食摄影</h2>
+    <div class="grid">
 
-<div class="item">
-<img src="https://picsum.photos/id/292/600/400" alt="Burger">
-<div class="info"><div class="title">Burger with melted cheese</div><span class="tag">Burger</span></div>
-</div>
+        <!-- 作品带子链接 点击跳详情 -->
+        <div class="card">
+            <a href="detail1.html">
+                <img src="https://picsum.photos/id/431/600/400" alt="营养早餐">
+                <div class="card-info">
+                    <div class="card-title">元气营养早餐</div>
+                    <span class="tag">早餐</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/431/600/400" alt="Breakfast">
-<div class="info"><div class="title">Colorful Breakfast Spread</div><span class="tag">Breakfast</span></div>
-</div>
+        <div class="card">
+            <a href="detail2.html">
+                <img src="https://picsum.photos/id/292/600/400" alt="芝士汉堡">
+                <div class="card-info">
+                    <div class="card-title">经典芝士汉堡</div>
+                    <span class="tag">汉堡</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/1080/600/400" alt="Strawberries">
-<div class="info"><div class="title">Fresh Strawberries</div><span class="tag">Healthy</span></div>
-</div>
+        <div class="card">
+            <a href="detail3.html">
+                <img src="https://picsum.photos/id/488/600/400" alt="意式披萨">
+                <div class="card-info">
+                    <div class="card-title">意式萨拉米披萨</div>
+                    <span class="tag">披萨</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/225/600/400" alt="Vegetables">
-<div class="info"><div class="title">Fresh vegetables</div><span class="tag">Healthy</span></div>
-</div>
+        <div class="card">
+            <a href="detail4.html">
+                <img src="https://picsum.photos/id/312/600/400" alt="精品咖啡">
+                <div class="card-info">
+                    <div class="card-title">手冲精品咖啡</div>
+                    <span class="tag">咖啡</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/488/600/400" alt="Pizza">
-<div class="info"><div class="title">Pizza salami</div><span class="tag">Pizza</span></div>
-</div>
+        <div class="card">
+            <a href="detail5.html">
+                <img src="https://picsum.photos/id/493/600/400" alt="草莓甜点">
+                <div class="card-info">
+                    <div class="card-title">草莓千层甜点</div>
+                    <span class="tag">甜点</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/292/600/400" alt="Cheeseburger">
-<div class="info"><div class="title">Juicy cheeseburger</div><span class="tag">Burger</span></div>
-</div>
+        <div class="card">
+            <a href="detail6.html">
+                <img src="https://picsum.photos/id/1080/600/400" alt="新鲜水果">
+                <div class="card-info">
+                    <div class="card-title">新鲜时令水果</div>
+                    <span class="tag">水果</span>
+                </div>
+            </a>
+        </div>
 
-<div class="item">
-<img src="https://picsum.photos/id/164/600/400" alt="Sushi">
-<div class="info"><div class="title">Delicious Sushi Selection</div><span class="tag">Sushi</span></div>
-</div>
-
-<div class="item">
-<img src="https://picsum.photos/id/493/600/400" alt="Cake">
-<div class="info"><div class="title">Strawberry Layer Cake</div><span class="tag">Bakery</span></div>
-</div>
-
-<div class="item">
-<img src="https://picsum.photos/id/506/600/400" alt="Ice Cream">
-<div class="info"><div class="title">Creamy Lime Ice Cream</div><span class="tag">Ice Cream</span></div>
-</div>
-
-<div class="item">
-<img src="https://picsum.photos/id/312/600/400" alt="Coffee">
-<div class="info"><div class="title">Coffee bean macro</div><span class="tag">Coffee</span></div>
-</div>
-
-<div class="item">
-<img src="https://picsum.photos/id/429/600/400" alt="Fruit">
-<div class="info"><div class="title">Colorful Fruit Medley</div><span class="tag">Healthy</span></div>
-</div>
-
-<div class="item">
-<img src="https://picsum.photos/id/287/600/400" alt="Biryani">
-<div class="info"><div class="title">Elegant Biryani</div><span class="tag">Dinner</span></div>
-</div>
-
-  </div>
+    </div>
 </div>
 
 <div class="footer">
-Foodiesfeed • Free Food Photos • 100% Royalty Free
+    Foodiesfeed 美食图库 © 免费高清美食摄影素材
 </div>
 
 </body>
