@@ -1,150 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foodiesfeed - Free Food Photos</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif}
-body{background:#f7f7f7;color:#333;line-height:1.6}
-/* 顶部固定导航 */
-.header{position:fixed;top:0;left:0;right:0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);z-index:999}
-.header-inner{max-width:1400px;margin:0 auto;padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:26px;font-weight:700;color:#ff5a3c;text-decoration:none}
-/* 横向可滚动分类栏 */
-.cat-bar{max-width:1400px;margin:0 auto;padding:0 20px;overflow-x:auto;white-space:nowrap;padding-top:88px;padding-bottom:15px}
-.cat-bar::-webkit-scrollbar{height:0}
-.cat-list{display:flex;gap:12px}
-.cat-list a{padding:8px 16px;background:#fff;border:1px solid #eee;border-radius:99px;text-decoration:none;color:#333;font-size:14px;transition:all 0.3s}
-.cat-list a:hover,.cat-list a.active{background:#ff5a3c;color:#fff;border-color:#ff5a3c}
-/* 瀑布流图库 */
-.container{max-width:1400px;margin:0 auto;padding:0 20px 40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.05);transition:transform 0.3s}
-.card:hover{transform:translateY(-5px)}
-.card a{text-decoration:none;color:inherit}
-.card img{width:100%;height:200px;object-fit:cover;display:block}
-.card-info{padding:12px}
-.card-title{font-size:14px;margin-bottom:4px;font-weight:500}
-.card-tag{font-size:12px;color:#999}
-/* 响应式适配 */
-@media (max-width:768px){
-    .grid{grid-template-columns:repeat(2,1fr)}
-    .logo{font-size:22px}
-}
-@media (max-width:480px){
-    .grid{grid-template-columns:1fr}
-    .header-inner{padding:15px 18px}
-    .cat-list a{padding:6px 12px;font-size:13px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
+
+    /* Header */
+    .header {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    }
+    .header h1 { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; }
+    .header nav a { color: #ccc; text-decoration: none; margin-left: 30px; font-size: 0.9rem; letter-spacing: 1px; }
+    .header nav a:hover { color: #fff; }
+
+    /* Hero Carousel */
+    .carousel {
+      position: relative; width: 100%; height: 100vh; overflow: hidden; background: #111;
+    }
+    .carousel-track {
+      display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .carousel-slide {
+      min-width: 100%; height: 100%; position: relative;
+    }
+    .carousel-slide img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .carousel-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 60px 40px 40px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    }
+    .carousel-overlay h2 { font-size: 2rem; font-weight: 300; margin-bottom: 8px; }
+    .carousel-overlay p { color: #bbb; font-size: 0.95rem; }
+
+    /* Carousel Controls */
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+      font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px); transition: all 0.3s;
+    }
+    .carousel-btn:hover { background: rgba(255,255,255,0.25); }
+    .carousel-btn.prev { left: 20px; }
+    .carousel-btn.next { right: 20px; }
+
+    .carousel-dots {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 10;
+    }
+    .carousel-dot {
+      width: 10px; height: 10px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s;
+    }
+    .carousel-dot.active { background: #fff; transform: scale(1.2); }
+
+    /* Progress bar */
+    .carousel-progress {
+      position: absolute; top: 0; left: 0; height: 3px; background: rgba(255,255,255,0.6);
+      z-index: 10; transition: width 0.1s linear;
+    }
+
+    /* Category Filter */
+    .filter-bar {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      background: transparent; border: 1px solid rgba(255,255,255,0.2);
+      color: #aaa; padding: 8px 20px; border-radius: 24px; cursor: pointer;
+      font-size: 0.85rem; letter-spacing: 1px; transition: all 0.3s;
+    }
+    .filter-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .filter-btn.active {
+      background: #fff; color: #0a0a0a; border-color: #fff;
+    }
+
+    /* Gallery Grid */
+    .gallery { padding: 80px 40px; max-width: 1400px; margin: 0 auto; }
+    .gallery h2 {
+      text-align: center; font-weight: 300; font-size: 1.8rem; margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+    .gallery-grid {
+      columns: 3; column-gap: 16px;
+    }
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden;
+      border-radius: 4px; cursor: pointer; transition: opacity 0.4s, transform 0.4s;
+    }
+    .gallery-item.hidden {
+      display: none;
+    }
+    .gallery-item img {
+      width: 100%; display: block; transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item .caption {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .caption { opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 20px; background: none; border: none;
+      color: #fff; font-size: 2rem; cursor: pointer;
+    }
+    .lightbox-btn {
+      position: absolute; top: 50%; transform: translateY(-50%); background: none;
+      border: none; color: #fff; font-size: 2rem; cursor: pointer; padding: 20px;
+    }
+    .lightbox-btn.prev { left: 0; }
+    .lightbox-btn.next { right: 0; }
+
+    /* Footer */
+    .footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .gallery-grid { columns: 2; }
+      .gallery { padding: 40px 16px; }
+      .header { padding: 16px 20px; }
+      .carousel-overlay h2 { font-size: 1.4rem; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="header-inner">
-        <a href="index.html" class="logo">Foodiesfeed</a>
-    </div>
-</div>
+  <!-- Header -->
+  <header class="header">
+    <h1>Gallery</h1>
+    <nav>
+      <a href="#carousel">首页</a>
+      <a href="#gallery">作品</a>
+    </nav>
+  </header>
 
-<div class="cat-bar">
-    <div class="cat-list">
-        <a href="index.html" class="active">Trending</a>
-        <a href="cat-healthy.html">Healthy</a>
-        <a href="cat-bakery.html">Bakery</a>
-        <a href="cat-breakfast.html">Breakfast</a>
-        <a href="cat-pizza.html">Pizza</a>
-        <a href="cat-burger.html">Burger</a>
-        <a href="cat-coffee.html">Coffee</a>
-        <a href="cat-icecream.html">Ice Cream</a>
-        <a href="cat-sushi.html">Sushi</a>
+  <!-- Hero Carousel -->
+  <section class="carousel" id="carousel">
+    <div class="carousel-progress" id="progress"></div>
+    <div class="carousel-track" id="track">
+      <!-- Slides: 替换图片路径和标题 -->
+      <div class="carousel-slide">
+        <img src="https://picsum.photos/1920/1080?random=1" alt="Photo 1">
+        <div class="carousel-overlay"><h2>城市之光</h2><p>2024 · 上海</p></div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://picsum.photos/1920/1080?random=2" alt="Photo 2">
+        <div class="carousel-overlay"><h2>山川湖海</h2><p>2024 · 云南</p></div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://picsum.photos/1920/1080?random=3" alt="Photo 3">
+        <div class="carousel-overlay"><h2>街头巷尾</h2><p>2023 · 北京</p></div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://picsum.photos/1920/1080?random=4" alt="Photo 4">
+        <div class="carousel-overlay"><h2>暮色苍茫</h2><p>2023 · 西藏</p></div>
+      </div>
     </div>
-</div>
+    <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+    <div class="carousel-dots" id="dots"></div>
+  </section>
 
-<div class="container">
-    <div class="grid">
-        <!-- 关联Healthy分类子链接 -->
-        <div class="card">
-            <a href="detail-healthy-fruit-1.html">
-                <img src="https://picsum.photos/id/1080/600/400" alt="Fresh Strawberries">
-                <div class="card-info">
-                    <div class="card-title">Fresh Strawberries</div>
-                    <div class="card-tag">Healthy / Fruit</div>
-                &lt;/div&gt;
-            &lt;/a&gt;
-        &lt;/div&gt;
-        <!-- 关联Bakery分类子链接 -->
-        <div class="card">
-            <a href="detail-bakery-cake-1.html">
-                <img src="https://picsum.photos/id/493/600/400" alt="Strawberry Cake">
-                <div class="card-info">
-                    <div class="card-title">Strawberry Layer Cake</div>
-                    <div class="card-tag">Bakery / Cake</div>
-                </div>
-            &lt;/a&gt;
-        &lt;/div&gt;
-        <!-- 关联Breakfast分类子链接 -->
-        <div class="card">
-            <a href="detail-breakfast-egg-1.html">
-                <img src="https://picsum.photos/id/431/600/400" alt="Egg Breakfast">
-                <div class="card-info">
-                    <div class="card-title">Colorful Egg Breakfast</div>
-                    <div class="card-tag">Breakfast / Egg</div>
-                </div&gt;
-            &lt;/a&gt;
-        &lt;/div&gt;
-        <!-- 关联Pizza分类子链接 -->
-        <div class="card">
-            <a href="detail-pizza-pepperoni-1.html">
-                <img src="https://picsum.photos/id/488/600/400" alt="Pepperoni Pizza">
-                <div class="card-info">
-                    <div class="card-title">Pepperoni Pizza</div>
-                    <div class="card-tag">Pizza / Pepperoni</div>
-                </div>
-            &lt;/a&gt;
-        &lt;/div&gt;
-        <!-- 关联Burger分类子链接 -->
-        <div class="card">
-            <a href="detail-burger-cheese-1.html">
-                <img src="https://picsum.photos/id/292/600/400" alt="Cheese Burger">
-                <div class="card-info">
-                    <div class="card-title">Juicy Cheese Burger</div>
-                    <div class="card-tag">Burger / Cheese</div>
-                </div>
-            </a>
-        &lt;/div&gt;
-        <!-- 关联Coffee分类子链接 -->
-        <div class="card">
-            <a href="detail-coffee-latte-1.html">
-                <img src="https://picsum.photos/id/429/600/400" alt="Latte Coffee">
-                <div class="card-info">
-                    <div class="card-title">Creamy Latte Coffee</div>
-                    <div class="card-tag">Coffee / Latte</div>
-                </div>
-            </a>
-        </div&gt;
-        <!-- 关联Ice Cream分类子链接 -->
-        <div class="card">
-            <a href="detail-icecream-vanilla-1.html">
-                <img src="https://picsum.photos/id/506/600/400" alt="Vanilla Ice Cream">
-                <div class="card-info">
-                    <div class="card-title">Vanilla Ice Cream</div>
-                    <div class="card-tag">Ice Cream / Vanilla</div>
-                </div>
-            </a>
-        </div&gt;
-        <!-- 关联Sushi分类子链接 -->
-        <div class="card">
-            <a href="detail-sushi-salmon-1.html">
-                <img src="https://picsum.photos/id/164/600/400" alt="Salmon Sushi">
-                <div class="card-info">
-                    <div class="card-title">Fresh Salmon Sushi</div>
-                    <div class="card-tag">Sushi / Salmon</div>
-                </div>
-            </a>
-        </div>
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <h2>— 作品集 —</h2>
+    <!-- Category Filter -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="landscape">风景</button>
+      <button class="filter-btn" data-filter="portrait">人像</button>
+      <button class="filter-btn" data-filter="street">街拍</button>
+      <button class="filter-btn" data-filter="architecture">建筑</button>
+      <button class="filter-btn" data-filter="night">夜景</button>
     </div>
-</div>
 
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- ========== 风景 landscape (15张) ========== -->
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land1/600/800" alt="landscape 1"><div class="caption"><p>风景 1 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land2/600/450" alt="landscape 2"><div class="caption"><p>风景 2 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land3/600/700" alt="landscape 3"><div class="caption"><p>风景 3 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land4/600/500" alt="landscape 4"><div class="caption"><p>风景 4 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land5/600/900" alt="landscape 5"><div class="caption"><p>风景 5 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land6/600/600" alt="landscape 6"><div class="caption"><p>风景 6 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land7/600/750" alt="landscape 7"><div class="caption"><p>风景 7 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land8/600/480" alt="landscape 8"><div class="caption"><p>风景 8 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land9/600/850" alt="landscape 9"><div class="caption"><p>风景 9 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land10/600/550" alt="landscape 10"><div class="caption"><p>风景 10 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land11/600/680" alt="landscape 11"><div class="caption"><p>风景 11 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land12/600/420" alt="landscape 12"><div class="caption"><p>风景 12 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land13/600/780" alt="landscape 13"><div class="caption"><p>风景 13 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land14/600/520" alt="landscape 14"><div class="caption"><p>风景 14 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="landscape"><img src="https://picsum.photos/seed/land15/600/650" alt="landscape 15"><div class="caption"><p>风景 15 · 待替换</p></div></div>
+
+      <!-- ========== 人像 portrait (15张) ========== -->
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port1/600/800" alt="portrait 1"><div class="caption"><p>人像 1 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port2/600/450" alt="portrait 2"><div class="caption"><p>人像 2 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port3/600/700" alt="portrait 3"><div class="caption"><p>人像 3 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port4/600/500" alt="portrait 4"><div class="caption"><p>人像 4 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port5/600/900" alt="portrait 5"><div class="caption"><p>人像 5 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port6/600/600" alt="portrait 6"><div class="caption"><p>人像 6 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port7/600/750" alt="portrait 7"><div class="caption"><p>人像 7 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port8/600/480" alt="portrait 8"><div class="caption"><p>人像 8 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port9/600/850" alt="portrait 9"><div class="caption"><p>人像 9 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port10/600/550" alt="portrait 10"><div class="caption"><p>人像 10 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port11/600/680" alt="portrait 11"><div class="caption"><p>人像 11 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port12/600/420" alt="portrait 12"><div class="caption"><p>人像 12 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port13/600/780" alt="portrait 13"><div class="caption"><p>人像 13 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port14/600/520" alt="portrait 14"><div class="caption"><p>人像 14 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="portrait"><img src="https://picsum.photos/seed/port15/600/650" alt="portrait 15"><div class="caption"><p>人像 15 · 待替换</p></div></div>
+
+      <!-- ========== 街拍 street (15张) ========== -->
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str1/600/800" alt="street 1"><div class="caption"><p>街拍 1 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str2/600/450" alt="street 2"><div class="caption"><p>街拍 2 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str3/600/700" alt="street 3"><div class="caption"><p>街拍 3 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str4/600/500" alt="street 4"><div class="caption"><p>街拍 4 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str5/600/900" alt="street 5"><div class="caption"><p>街拍 5 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str6/600/600" alt="street 6"><div class="caption"><p>街拍 6 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str7/600/750" alt="street 7"><div class="caption"><p>街拍 7 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str8/600/480" alt="street 8"><div class="caption"><p>街拍 8 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str9/600/850" alt="street 9"><div class="caption"><p>街拍 9 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str10/600/550" alt="street 10"><div class="caption"><p>街拍 10 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str11/600/680" alt="street 11"><div class="caption"><p>街拍 11 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str12/600/420" alt="street 12"><div class="caption"><p>街拍 12 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str13/600/780" alt="street 13"><div class="caption"><p>街拍 13 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str14/600/520" alt="street 14"><div class="caption"><p>街拍 14 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="street"><img src="https://picsum.photos/seed/str15/600/650" alt="street 15"><div class="caption"><p>街拍 15 · 待替换</p></div></div>
+
+      <!-- ========== 建筑 architecture (15张) ========== -->
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch1/600/800" alt="architecture 1"><div class="caption"><p>建筑 1 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch2/600/450" alt="architecture 2"><div class="caption"><p>建筑 2 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch3/600/700" alt="architecture 3"><div class="caption"><p>建筑 3 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch4/600/500" alt="architecture 4"><div class="caption"><p>建筑 4 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch5/600/900" alt="architecture 5"><div class="caption"><p>建筑 5 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch6/600/600" alt="architecture 6"><div class="caption"><p>建筑 6 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch7/600/750" alt="architecture 7"><div class="caption"><p>建筑 7 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch8/600/480" alt="architecture 8"><div class="caption"><p>建筑 8 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch9/600/850" alt="architecture 9"><div class="caption"><p>建筑 9 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch10/600/550" alt="architecture 10"><div class="caption"><p>建筑 10 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch11/600/680" alt="architecture 11"><div class="caption"><p>建筑 11 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch12/600/420" alt="architecture 12"><div class="caption"><p>建筑 12 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch13/600/780" alt="architecture 13"><div class="caption"><p>建筑 13 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch14/600/520" alt="architecture 14"><div class="caption"><p>建筑 14 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="architecture"><img src="https://picsum.photos/seed/arch15/600/650" alt="architecture 15"><div class="caption"><p>建筑 15 · 待替换</p></div></div>
+
+      <!-- ========== 夜景 night (15张) ========== -->
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night1/600/800" alt="night 1"><div class="caption"><p>夜景 1 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night2/600/450" alt="night 2"><div class="caption"><p>夜景 2 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night3/600/700" alt="night 3"><div class="caption"><p>夜景 3 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night4/600/500" alt="night 4"><div class="caption"><p>夜景 4 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night5/600/900" alt="night 5"><div class="caption"><p>夜景 5 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night6/600/600" alt="night 6"><div class="caption"><p>夜景 6 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night7/600/750" alt="night 7"><div class="caption"><p>夜景 7 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night8/600/480" alt="night 8"><div class="caption"><p>夜景 8 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night9/600/850" alt="night 9"><div class="caption"><p>夜景 9 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night10/600/550" alt="night 10"><div class="caption"><p>夜景 10 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night11/600/680" alt="night 11"><div class="caption"><p>夜景 11 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night12/600/420" alt="night 12"><div class="caption"><p>夜景 12 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night13/600/780" alt="night 13"><div class="caption"><p>夜景 13 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night14/600/520" alt="night 14"><div class="caption"><p>夜景 14 · 待替换</p></div></div>
+      <div class="gallery-item" data-category="night"><img src="https://picsum.photos/seed/night15/600/650" alt="night 15"><div class="caption"><p>夜景 15 · 待替换</p></div></div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-btn prev" onclick="moveLightbox(-1)">&#10094;</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-btn next" onclick="moveLightbox(1)">&#10095;</button>
+  </div>
+
+  <footer class="footer">© 2024 Photography Portfolio — All Rights Reserved</footer>
+
+  <script>
+    // === Carousel ===
+    const track = document.getElementById('track');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('dots');
+    const progressBar = document.getElementById('progress');
+    let current = 0;
+    let autoTimer, progressTimer;
+    const INTERVAL = 5000;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      current = ((index % slides.length) + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) =>
+        d.classList.toggle('active', i === current));
+      resetAuto();
+    }
+
+    function moveSlide(dir) { goTo(current + dir); }
+
+    function resetAuto() {
+      clearTimeout(autoTimer);
+      clearInterval(progressTimer);
+      let elapsed = 0;
+      progressBar.style.width = '0%';
+      progressTimer = setInterval(() => {
+        elapsed += 50;
+        progressBar.style.width = (elapsed / INTERVAL * 100) + '%';
+        if (elapsed >= INTERVAL) clearInterval(progressTimer);
+      }, 50);
+      autoTimer = setTimeout(() => moveSlide(1), INTERVAL);
+    }
+    resetAuto();
+
+    // Touch support
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    track.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) moveSlide(diff > 0 ? 1 : -1);
+    });
+
+    // === Category Filter ===
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        items.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+        // update lightbox to only visible items
+        visibleItems = [...items].filter(i => !i.classList.contains('hidden'));
+      });
+    });
+
+    // === Lightbox ===
+    let visibleItems = [...document.querySelectorAll('.gallery-item')];
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    let lbIndex = 0;
+
+    document.getElementById('galleryGrid').addEventListener('click', e => {
+      const item = e.target.closest('.gallery-item:not(.hidden)');
+      if (!item) return;
+      visibleItems = [...document.querySelectorAll('.gallery-item:not(.hidden)')];
+      lbIndex = visibleItems.indexOf(item);
+      lightboxImg.src = item.querySelector('img').src;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function moveLightbox(dir) {
+      const len = visibleItems.length;
+      lbIndex = ((lbIndex + dir) % len + len) % len;
+      lightboxImg.src = visibleItems[lbIndex].querySelector('img').src;
+    }
+
+    lightbox.onclick = e => { if (e.target === lightbox) closeLightbox(); };
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') moveLightbox(-1);
+      if (e.key === 'ArrowRight') moveLightbox(1);
+    });
+  </script>
 </body>
 </html>
