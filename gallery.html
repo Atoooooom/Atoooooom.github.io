@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>合集</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
+    .header {
+      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .back-btn {
+      color: #888; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px;
+      transition: color 0.3s; border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 20px; border-radius: 24px;
+    }
+    .back-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .category-title {
+      font-weight: 300; font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .gallery { padding: 40px; max-width: 1400px; margin: 0 auto; }
+    .gallery-grid { columns: 3; column-gap: 16px; }
+    .gallery-item {
+      break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden;
+      border-radius: 4px; cursor: pointer; transition: opacity 0.3s, transform 0.3s;
+    }
+    .gallery-item:hover { transform: translateY(-4px); }
+    .gallery-item img {
+      width: 100%; display: block; transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item .caption {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .caption { opacity: 1; }
+    .empty { text-align: center; color: #555; padding: 80px 40px; font-size: 1.1rem; }
+
+    @media (max-width: 768px) {
+      .gallery-grid { columns: 2; }
+      .gallery { padding: 20px; }
+      .header { padding: 16px 20px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a class="back-btn" href="index.html">← 返回首页</a>
+    <div class="category-title" id="catTitle">合集</div>
+  </header>
+
+  <section class="gallery">
+    <div class="gallery-grid" id="grid"></div>
+  </section>
+
+  <script>
+    const categoryNames = {
+      landscape: '风景', portrait: '人像', street: '街拍',
+      architecture: '建筑', night: '夜景'
+    };
+    const cat = new URLSearchParams(location.search).get('category');
+    document.getElementById('catTitle').textContent = categoryNames[cat] || '合集';
+    document.title = (categoryNames[cat] || '合集') + ' — Photography Portfolio';
+
+    // 从主页数据同步（同域 iframe / JSON / 或直接内嵌）
+    // 简单方案：直接根据分类生成 picsum 占位图
+    const seeds = { landscape: 'land', portrait: 'port', street: 'str', architecture: 'arch', night: 'night' };
+    const sizes = [[800,600],[450,600],[700,600],[500,600],[900,600],[600,600],[750,600],[480,600],[850,600],[550,600],[680,600],[420,600],[780,600],[520,600],[650,600]];
+    const seed = seeds[cat] || 'photo';
+    const grid = document.getElementById('grid');
+
+    if (!cat || !seeds[cat]) {
+      grid.innerHTML = '<div class="empty">未找到该分类</div>';
+    } else {
+      sizes.forEach(([w,h], i) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.innerHTML = `<img src="https://picsum.photos/seed/${seed}${i+1}/${w}/${h}" alt="${categoryNames[cat]} ${i+1}"><div class="caption"><p>${categoryNames[cat]} ${i+1} · 待替换</p></div>`;
+        div.onclick = () => { location.href = 'photo.html?category=' + cat + '&index=' + i; };
+        grid.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
