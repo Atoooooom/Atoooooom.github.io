@@ -3,32 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>合集</title>
+  <title>合集 — Photography Portfolio</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
     .header {
+      position: fixed; top: 0; width: 100%; z-index: 100;
       padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .back-btn {
-      color: #888; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px;
-      transition: color 0.3s; border: 1px solid rgba(255,255,255,0.15);
-      padding: 8px 20px; border-radius: 24px;
+    .header h1 { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; }
+    .header h1 a { color: #fff; text-decoration: none; }
+    .header nav { display: flex; align-items: center; }
+    .header nav > a { color: #ccc; text-decoration: none; margin-left: 30px; font-size: 0.9rem; letter-spacing: 1px; }
+    .header nav > a:hover { color: #fff; }
+    .nav-dropdown { position: relative; margin-left: 30px; }
+    .nav-dropdown > a { color: #fff; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; }
+    .nav-dropdown > a:hover { color: #fff; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      background: rgba(20,20,20,0.95); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 8px 0; min-width: 140px; margin-top: 12px;
+      backdrop-filter: blur(20px); z-index: 200;
     }
-    .back-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
-    .category-title {
-      font-weight: 300; font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase;
+    .nav-dropdown-menu::before {
+      content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+      border-left: 6px solid transparent; border-right: 6px solid transparent;
+      border-bottom: 6px solid rgba(255,255,255,0.1);
     }
-    .gallery { padding: 40px; max-width: 1400px; margin: 0 auto; }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu a {
+      display: block; color: #aaa; text-decoration: none; padding: 10px 24px;
+      font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+    .page-title {
+      padding: 120px 40px 40px; text-align: center; font-weight: 300; font-size: 1.8rem;
+      letter-spacing: 3px;
+    }
+    .gallery { padding: 20px 40px 80px; max-width: 1400px; margin: 0 auto; }
     .gallery-grid { columns: 3; column-gap: 16px; }
     .gallery-item {
       break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden;
       border-radius: 4px; cursor: pointer; transition: opacity 0.3s, transform 0.3s;
     }
     .gallery-item:hover { transform: translateY(-4px); }
-    .gallery-item img {
-      width: 100%; display: block; transition: transform 0.5s;
-    }
+    .gallery-item img { width: 100%; display: block; transition: transform 0.5s; }
     .gallery-item:hover img { transform: scale(1.05); }
     .gallery-item .caption {
       position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
@@ -38,10 +59,18 @@
     .gallery-item:hover .caption { opacity: 1; }
     .empty { text-align: center; color: #555; padding: 80px 40px; font-size: 1.1rem; }
 
+    .footer-bottom {
+      padding: 30px 40px; text-align: center; color: #444; font-size: 0.75rem;
+      letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
     @media (max-width: 768px) {
       .gallery-grid { columns: 2; }
       .gallery { padding: 20px; }
       .header { padding: 16px 20px; }
+      .page-title { padding: 100px 20px 30px; font-size: 1.4rem; }
+      .header nav > a, .nav-dropdown { margin-left: 16px; }
+      .header nav > a, .nav-dropdown > a { font-size: 0.8rem; }
     }
     @media (max-width: 480px) {
       .gallery-grid { columns: 1; }
@@ -51,27 +80,73 @@
 <body>
 
   <header class="header">
-    <a class="back-btn" href="index.html">← 返回首页</a>
-    <div class="category-title" id="catTitle">合集</div>
+    <h1><a href="index.html">Gallery</a></h1>
+    <nav>
+      <a href="index.html">首页</a>
+      <div class="nav-dropdown">
+        <a href="#" style="color:#fff">作品 ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="gallery.html?category=landscape">风景</a>
+          <a href="gallery.html?category=portrait">人像</a>
+          <a href="gallery.html?category=street">街拍</a>
+          <a href="gallery.html?category=architecture">建筑</a>
+          <a href="gallery.html?category=night">夜景</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">关于 ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="about.html#bio">个人简介</a>
+          <a href="about.html#philosophy">摄影理念</a>
+          <a href="about.html#gear">设备器材</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">服务 ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="services.html#portrait">约拍写真</a>
+          <a href="services.html#commercial">商业拍摄</a>
+          <a href="services.html#retouching">后期修图</a>
+          <a href="services.html#workshop">摄影教学</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">日志 ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="blog.html#notes">拍摄手记</a>
+          <a href="blog.html#travel">行程记录</a>
+          <a href="blog.html#tech">技术分享</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="#">联系 ▾</a>
+        <div class="nav-dropdown-menu">
+          <a href="contact.html#inquiry">合作咨询</a>
+          <a href="contact.html#social">社交媒体</a>
+        </div>
+      </div>
+    </nav>
   </header>
+
+  <div class="page-title" id="catTitle">合集</div>
 
   <section class="gallery">
     <div class="gallery-grid" id="grid"></div>
   </section>
+
+  <div class="footer-bottom">© 2024 Photography Portfolio — All Rights Reserved</div>
 
   <script>
     const categoryNames = {
       landscape: '风景', portrait: '人像', street: '街拍',
       architecture: '建筑', night: '夜景'
     };
+    const seeds = { landscape: 'land', portrait: 'port', street: 'str', architecture: 'arch', night: 'night' };
+    const sizes = [[800,600],[450,600],[700,600],[500,600],[900,600],[600,600],[750,600],[480,600],[850,600],[550,600],[680,600],[420,600],[780,600],[520,600],[650,600]];
     const cat = new URLSearchParams(location.search).get('category');
     document.getElementById('catTitle').textContent = categoryNames[cat] || '合集';
     document.title = (categoryNames[cat] || '合集') + ' — Photography Portfolio';
 
-    // 从主页数据同步（同域 iframe / JSON / 或直接内嵌）
-    // 简单方案：直接根据分类生成 picsum 占位图
-    const seeds = { landscape: 'land', portrait: 'port', street: 'str', architecture: 'arch', night: 'night' };
-    const sizes = [[800,600],[450,600],[700,600],[500,600],[900,600],[600,600],[750,600],[480,600],[850,600],[550,600],[680,600],[420,600],[780,600],[520,600],[650,600]];
     const seed = seeds[cat] || 'photo';
     const grid = document.getElementById('grid');
 
