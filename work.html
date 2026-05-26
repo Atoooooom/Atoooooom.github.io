@@ -152,7 +152,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   <div class="author-bar">
     <img class="avatar" src="https://picsum.photos/seed/avatar1/96/96" alt="">
     <div class="info">
-      <div class="name">你的名字</div>
+      <div class="name">失踪的建文帝</div>
       <div class="meta">独立摄影师 · 武汉 · 4天前发布</div>
     </div>
     <button class="follow-btn" onclick="this.textContent=this.textContent==='关注'?'已关注':'关注'">+ 关注</button>
@@ -160,7 +160,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 
   <!-- 作品标题 & 描述 -->
   <h1 class="work-title" id="workTitle">光影之间</h1>
-  <p class="work-desc" id="workDesc">用镜头捕捉那些稍纵即逝的瞬间。光线在建筑间穿梭，在城市中流淌，在每一个不经意的角落里留下痕迹。这组作品记录了不同时间、不同地点下光影与空间的对话。</p>
+  <p class="work-desc" id="workDesc">用镜头捕捉那些稍纵即逝的瞬间。光线在建筑间穿梭，在城市中流淌，在每一个不经意的角落里留下痕迹。</p>
 
   <!-- 图片展示 -->
   <div class="work-images" id="workImages"></div>
@@ -197,22 +197,28 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 <div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
 
 <script>
-document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
-function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+document.addEventListener('click',function(e){
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d){if(!d.contains(e.target))d.classList.remove('open')});
+});
+function toggleDD(el){
+  var w=el.classList.contains('open');
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d){d.classList.remove('open')});
+  if(!w)el.classList.add('open');
+}
 
 /* ── 从 URL 参数读取分类信息 ── */
-const params=new URLSearchParams(location.search);
-const cat=params.get('category')||'landscape';
-const idx=parseInt(params.get('index'))||0;
-const catNames={landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
-const seeds={landscape:'land',portrait:'port',street:'str',architecture:'arch',night:'night'};
-const name=catNames[cat]||'作品';
-const seed=seeds[cat]||'photo';
+var params=new URLSearchParams(location.search);
+var cat=params.get('category')||'landscape';
+var idx=parseInt(params.get('index'))||0;
+var catNames={landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
+var seeds={landscape:'land',portrait:'port',street:'str',architecture:'arch',night:'night'};
+var name=catNames[cat]||'作品';
+var seed=seeds[cat]||'photo';
 
 document.title=name+' 影集 — Photography Portfolio';
 document.getElementById('workTitle').textContent=name+' · 光影之间';
 
-const descs={
+var descs={
   landscape:'山川湖海，晨昏四季。每一束光都有它的故事，每一片云都在诉说时间。',
   portrait:'人像不只是记录外表，而是捕捉灵魂的瞬间。眼神里的情绪，姿态中的张力。',
   street:'城市是最好的舞台，街头是最真实的剧场。不摆拍，只等待。',
@@ -222,10 +228,10 @@ const descs={
 document.getElementById('workDesc').textContent=descs[cat]||descs.landscape;
 
 /* ── 生成图片 ── */
-const sizes=[[1200,800],[900,600],[1100,700],[850,600],[1300,750],[950,650],[1050,700],[800,600],[1150,720]];
-const imgContainer=document.getElementById('workImages');
-sizes.forEach((s,i)=>{
-  const img=document.createElement('img');
+var sizes=[[1200,800],[900,600],[1100,700],[850,600],[1300,750],[950,650],[1050,700],[800,600],[1150,720]];
+var imgContainer=document.getElementById('workImages');
+sizes.forEach(function(s,i){
+  var img=document.createElement('img');
   img.src='https://picsum.photos/seed/'+seed+'work'+i+'/'+s[0]+'/'+s[1];
   img.alt=name+' '+(i+1);
   img.loading='lazy';
@@ -233,48 +239,34 @@ sizes.forEach((s,i)=>{
 });
 
 /* ── 标签 ── */
-const tagMap={
+var tagMap={
   landscape:['风光','自然','旅行','日出','山水','户外'],
   portrait:['人像','写真','情绪','光影','肖像','艺术'],
   street:['街拍','城市','纪实','人文','黑白','瞬间'],
   architecture:['建筑','空间','线条','几何','结构','设计'],
   night:['夜景','城市','长曝光','星空','霓虹','暗调']
 };
-const tagsEl=document.getElementById('workTags');
-(tagMap[cat]||tagMap.landscape).forEach(t=>{
-  const a=document.createElement('a');a.className='tag';a.href='#';a.textContent=t;
-  a.onclick=e=>{e.preventDefault();return false};tagsEl.appendChild(a);
+var tagsEl=document.getElementById('workTags');
+(tagMap[cat]||tagMap.landscape).forEach(function(t){
+  var a=document.createElement('a');a.className='tag';a.href='#';a.textContent=t;
+  a.onclick=function(e){e.preventDefault();return false;};tagsEl.appendChild(a);
 });
 
 /* ── 相关推荐 ── */
-const allCats=['landscape','portrait','street','architecture','night'];
-const relGrid=document.getElementById('relatedGrid');
-allCats.filter(c=>c!==cat).slice(0,6).forEach((c,ri)=>{
-  const a=document.createElement('a');a.className='related-card';a.href='work.html?category='+c+'&index='+Math.floor(Math.random()*9);
-  const img=document.createElement('img');img.src='https://picsum.photos/seed/'+seeds[c]+'rel'+ri+'/400/300';img.alt='';
+var allCats=['landscape','portrait','street','architecture','night'];
+var relGrid=document.getElementById('relatedGrid');
+allCats.filter(function(c){return c!==cat;}).slice(0,6).forEach(function(c,ri){
+  var a=document.createElement('a');a.className='related-card';a.href='work.html?category='+c+'&index='+Math.floor(Math.random()*9);
+  var img=document.createElement('img');img.src='https://picsum.photos/seed/'+seeds[c]+'rel'+ri+'/400/300';img.alt='';
   a.appendChild(img);
-  const t=document.createElement('div');t.className='r-title';t.textContent=catNames[c]+'精选 '+((ri%5)+1);a.appendChild(t);
-  const m=document.createElement('div');m.className='r-meta';m.textContent=Math.floor(Math.random()*500+50)+' 浏览';a.appendChild(m);
+  var t=document.createElement('div');t.className='r-title';t.textContent=catNames[c]+'精选 '+((ri%5)+1);a.appendChild(t);
+  var m=document.createElement('div');m.className='r-meta';m.textContent=Math.floor(Math.random()*500+50)+' 浏览';a.appendChild(m);
   relGrid.appendChild(a);
 });
 
-/* ── 评论数据 ── */
-const comments=[
-  {avatar:'https://i.pravatar.cc/72?u=1',name:'光影猎人',text:'太棒了！这张的光线运用非常到位，尤其是第三张，构图和曝光都恰到好处。',time:'2小时前'},
-  {avatar:'https://i.pravatar.cc/72?u=2',name:'旅行者小王',text:'请问这是在哪里拍的？想去打卡同款机位！',time:'5小时前'},
-  {avatar:'https://i.pravatar.cc/72?u=3',name:'摄影师老李',text:'色彩控制很舒服，没有过度饱和，保留了自然的质感。',time:'昨天'},
-  {avatar:'https://i.pravatar.cc/72?u=4',name:'视觉设计师Amy',text:'收藏了，作为参考素材。这种色调很适合做海报背景。',time:'2天前'},
-  {avatar:'https://i.pravatar.cc/72?u=5',name:'摄影爱好者',text:'请问用的什么镜头拍的？虚化效果很好看',time:'3天前'}
-];
-const cList=document.getElementById('commentList');
-comments.forEach(c=>{
-  const li=document.createElement('li');li.className='comment-item';
-  li.innerHTML='<img class="c-avatar" src="'+c.avatar+'" alt=""><div class="c-body"><div class="c-name">'+c.name+'</div><div class="c-text">'+c.text+'</div><div class="c-time">'+c.time+'</div></div>';
-  cList.appendChild(li);
-});
 
 /* ── 交互 ── */
-let liked=false;
+var liked=false;
 function toggleLike(btn){
   liked=!liked;
   btn.querySelector('.icon').style.color=liked?'#e74c3c':'';
@@ -289,9 +281,9 @@ function shareWork(){
   }
 }
 function postComment(){
-  const text=document.getElementById('commentText').value.trim();
+  var text=document.getElementById('commentText').value.trim();
   if(!text)return;
-  const li=document.createElement('li');li.className='comment-item';
+  var li=document.createElement('li');li.className='comment-item';
   li.innerHTML='<img class="c-avatar" src="https://i.pravatar.cc/72?u=me" alt=""><div class="c-body"><div class="c-name">我</div><div class="c-text">'+text+'</div><div class="c-time">刚刚</div></div>';
   cList.insertBefore(li,cList.firstChild);
   document.getElementById('commentText').value='';
