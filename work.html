@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>作品展示 — Photography Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
+
+/* ── 导航栏 ── */
+.header{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-size:1.2rem;font-weight:300;letter-spacing:4px}
+.header h1 a{color:#fff;text-decoration:none}
+.header nav{display:flex;align-items:center}
+.header nav>a{color:#ccc;text-decoration:none;margin-left:28px;font-size:.9rem;letter-spacing:1px}
+.header nav>a:hover{color:#fff}
+.nav-dropdown{position:relative;margin-left:28px}
+.nav-dropdown>a{color:#ccc;text-decoration:none;font-size:.9rem;letter-spacing:1px;cursor:pointer}
+.nav-dropdown>a:hover{color:#fff}
+.dd-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,20,20,.97);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 0;min-width:140px;backdrop-filter:blur(20px);z-index:200}
+.dd-menu::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(255,255,255,.1)}
+.nav-dropdown:hover .dd-menu,.nav-dropdown.open .dd-menu{display:block}
+.dd-menu a{display:block;color:#aaa;text-decoration:none;padding:10px 24px;font-size:.85rem;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.dd-menu a:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* ── 作品主体 ── */
+.work-wrap{padding:120px 40px 60px;max-width:1100px;margin:0 auto}
+
+/* 作者信息条 */
+.author-bar{display:flex;align-items:center;gap:16px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:36px}
+.author-bar .avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.1)}
+.author-bar .info{flex:1}
+.author-bar .name{font-size:1rem;font-weight:400;letter-spacing:.5px}
+.author-bar .meta{font-size:.78rem;color:#666;margin-top:3px}
+.author-bar .follow-btn{padding:8px 22px;background:transparent;border:1px solid rgba(255,255,255,.25);color:#ddd;border-radius:24px;cursor:pointer;font-size:.82rem;transition:all .3s;font-family:inherit}
+.author-bar .follow-btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4)}
+
+/* 标题区 */
+.work-title{font-weight:300;font-size:2.2rem;letter-spacing:2px;margin-bottom:12px;line-height:1.3}
+.work-desc{color:#999;font-size:.92rem;line-height:1.9;margin-bottom:32px;max-width:800px}
+
+/* 图片展示 */
+.work-images{margin-bottom:40px}
+.work-images img{width:100%;border-radius:6px;margin-bottom:14px;display:block;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.work-images img:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+
+/* 互动栏 */
+.action-bar{display:flex;align-items:center;gap:20px;padding:24px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:40px}
+.action-btn{display:flex;align-items:center;gap:8px;color:#888;text-decoration:none;font-size:.88rem;cursor:pointer;transition:color .3s;background:none;border:none;font-family:inherit;padding:6px 0}
+.action-btn:hover{color:#fff}
+.action-btn .icon{font-size:1.15rem}
+.action-btn .count{font-size:.78rem;color:#666}
+
+/* 标签 */
+.tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
+.tag{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:6px 16px;font-size:.8rem;color:#aaa;letter-spacing:.5px;transition:all .3s;text-decoration:none}
+.tag:hover{color:#fff;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08)}
+
+/* 相关推荐 */
+.related-section{margin-top:60px;padding-top:40px;border-top:1px solid rgba(255,255,255,.04)}
+.related-section h3{font-weight:300;font-size:1.2rem;letter-spacing:2px;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.related-card{text-decoration:none;color:inherit;transition:transform .3s}
+.related-card:hover{transform:translateY(-4px)}
+.related-card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;margin-bottom:10px}
+.related-card .r-title{font-size:.85rem;color:#bbb;letter-spacing:.3px}
+.related-card .r-meta{font-size:.72rem;color:#555;margin-top:4px}
+
+/* 评论 */
+.comments-section{margin-top:60px;padding-top:40px;border-top:1px solid rgba(255,255,255,.04)}
+.comments-section h3{font-weight:300;font-size:1.2rem;letter-spacing:2px;margin-bottom:24px}
+.comment-input{display:flex;gap:12px;margin-bottom:30px}
+.comment-input textarea{flex:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;color:#fff;font-size:.9rem;font-family:inherit;resize:none;height:80px;outline:none;transition:border-color .3s}
+.comment-input textarea:focus{border-color:rgba(255,255,255,.25)}
+.comment-input button{padding:0 26px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#ddd;border-radius:12px;cursor:pointer;font-size:.85rem;transition:all .3s;font-family:inherit;align-self:flex-end}
+.comment-input button:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.comment-list{list-style:none}
+.comment-item{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.comment-item .c-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.comment-item .c-body{flex:1}
+.comment-item .c-name{font-size:.84rem;color:#ccc;margin-bottom:4px}
+.comment-item .c-text{font-size:.86rem;color:#888;line-height:1.7}
+.comment-item .c-time{font-size:.72rem;color:#444;margin-top:6px}
+
+.footer{padding:40px 40px 30px;text-align:center;color:#444;font-size:.75rem;letter-spacing:1px;border-top:1px solid rgba(255,255,255,.05);margin-top:60px}
+
+@media(max-width:768px){
+  .header{padding:16px 20px}
+  .work-wrap{padding:100px 20px 40px}
+  .work-title{font-size:1.6rem}
+  .header nav>a,.nav-dropdown{margin-left:14px}
+  .header nav>a,.nav-dropdown>a{font-size:.78rem}
+  .related-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1><a href="index.html">Gallery</a></h1>
+  <nav>
+    <a href="index.html">首页</a>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">作品 ▾</a>
+      <div class="dd-menu">
+        <a href="gallery.html?category=landscape">风景</a>
+        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=street">街拍</a>
+        <a href="gallery.html?category=architecture">建筑</a>
+        <a href="gallery.html?category=night">夜景</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">关于 ▾</a>
+      <div class="dd-menu">
+        <a href="about.html#bio">个人简介</a>
+        <a href="about.html#philosophy">摄影理念</a>
+        <a href="about.html#gear">设备器材</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">服务 ▾</a>
+      <div class="dd-menu">
+        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#commercial">商业拍摄</a>
+        <a href="services.html#retouching">后期修图</a>
+        <a href="services.html#workshop">摄影教学</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">日志 ▾</a>
+      <div class="dd-menu">
+        <a href="blog.html#notes">拍摄手记</a>
+        <a href="blog.html#travel">行程记录</a>
+        <a href="blog.html#tech">技术分享</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">联系 ▾</a>
+      <div class="dd-menu">
+        <a href="contact.html#inquiry">合作咨询</a>
+        <a href="contact.html#social">社交媒体</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="work-wrap">
+
+  <!-- 作者信息 -->
+  <div class="author-bar">
+    <img class="avatar" src="https://picsum.photos/seed/avatar1/96/96" alt="">
+    <div class="info">
+      <div class="name">你的名字</div>
+      <div class="meta">独立摄影师 · 武汉 · 4天前发布</div>
+    </div>
+    <button class="follow-btn" onclick="this.textContent=this.textContent==='关注'?'已关注':'关注'">+ 关注</button>
+  </div>
+
+  <!-- 作品标题 & 描述 -->
+  <h1 class="work-title" id="workTitle">光影之间</h1>
+  <p class="work-desc" id="workDesc">用镜头捕捉那些稍纵即逝的瞬间。光线在建筑间穿梭，在城市中流淌，在每一个不经意的角落里留下痕迹。这组作品记录了不同时间、不同地点下光影与空间的对话。</p>
+
+  <!-- 图片展示 -->
+  <div class="work-images" id="workImages"></div>
+
+  <!-- 互动栏 -->
+  <div class="action-bar">
+    <button class="action-btn" onclick="toggleLike(this)"><span class="icon">♡</span> 喜欢<span class="count" id="likeCount">128</span></button>
+    <button class="action-btn"><span class="icon">★</span> 收藏<span class="count">42</span></button>
+    <button class="action-btn"><span class="icon">💬</span> 评论<span class="count">13</span></button>
+    <button class="action-btn" style="margin-left:auto" onclick="shareWork()"><span class="icon">↗</span> 分享</button>
+  </div>
+
+  <!-- 标签 -->
+  <div class="tags" id="workTags"></div>
+
+  <!-- 相关推荐 -->
+  <div class="related-section">
+    <h3>相关作品</h3>
+    <div class="related-grid" id="relatedGrid"></div>
+  </div>
+
+  <!-- 评论区 -->
+  <div class="comments-section">
+    <h3>评论 (13)</h3>
+    <div class="comment-input">
+      <textarea placeholder="说说你的看法..." id="commentText"></textarea>
+      <button onclick="postComment()">发送</button>
+    </div>
+    <ul class="comment-list" id="commentList"></ul>
+  </div>
+
+</div>
+
+<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+
+<script>
+document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
+function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+
+/* ── 从 URL 参数读取分类信息 ── */
+const params=new URLSearchParams(location.search);
+const cat=params.get('category')||'landscape';
+const idx=parseInt(params.get('index'))||0;
+const catNames={landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
+const seeds={landscape:'land',portrait:'port',street:'str',architecture:'arch',night:'night'};
+const name=catNames[cat]||'作品';
+const seed=seeds[cat]||'photo';
+
+document.title=name+' 影集 — Photography Portfolio';
+document.getElementById('workTitle').textContent=name+' · 光影之间';
+
+const descs={
+  landscape:'山川湖海，晨昏四季。每一束光都有它的故事，每一片云都在诉说时间。',
+  portrait:'人像不只是记录外表，而是捕捉灵魂的瞬间。眼神里的情绪，姿态中的张力。',
+  street:'城市是最好的舞台，街头是最真实的剧场。不摆拍，只等待。',
+  architecture:'建筑的线条是凝固的音乐，光影是流动的节拍。在钢筋水泥中寻找诗意。',
+  night:'当城市入睡，光影才真正醒来。霓虹、星空、车流——夜是另一番天地。'
+};
+document.getElementById('workDesc').textContent=descs[cat]||descs.landscape;
+
+/* ── 生成图片 ── */
+const sizes=[[1200,800],[900,600],[1100,700],[850,600],[1300,750],[950,650],[1050,700],[800,600],[1150,720]];
+const imgContainer=document.getElementById('workImages');
+sizes.forEach((s,i)=>{
+  const img=document.createElement('img');
+  img.src='https://picsum.photos/seed/'+seed+'work'+i+'/'+s[0]+'/'+s[1];
+  img.alt=name+' '+(i+1);
+  img.loading='lazy';
+  imgContainer.appendChild(img);
+});
+
+/* ── 标签 ── */
+const tagMap={
+  landscape:['风光','自然','旅行','日出','山水','户外'],
+  portrait:['人像','写真','情绪','光影','肖像','艺术'],
+  street:['街拍','城市','纪实','人文','黑白','瞬间'],
+  architecture:['建筑','空间','线条','几何','结构','设计'],
+  night:['夜景','城市','长曝光','星空','霓虹','暗调']
+};
+const tagsEl=document.getElementById('workTags');
+(tagMap[cat]||tagMap.landscape).forEach(t=>{
+  const a=document.createElement('a');a.className='tag';a.href='#';a.textContent=t;
+  a.onclick=e=>{e.preventDefault();return false};tagsEl.appendChild(a);
+});
+
+/* ── 相关推荐 ── */
+const allCats=['landscape','portrait','street','architecture','night'];
+const relGrid=document.getElementById('relatedGrid');
+allCats.filter(c=>c!==cat).slice(0,6).forEach((c,ri)=>{
+  const a=document.createElement('a');a.className='related-card';a.href='work.html?category='+c+'&index='+Math.floor(Math.random()*9);
+  const img=document.createElement('img');img.src='https://picsum.photos/seed/'+seeds[c]+'rel'+ri+'/400/300';img.alt='';
+  a.appendChild(img);
+  const t=document.createElement('div');t.className='r-title';t.textContent=catNames[c]+'精选 '+((ri%5)+1);a.appendChild(t);
+  const m=document.createElement('div');m.className='r-meta';m.textContent=Math.floor(Math.random()*500+50)+' 浏览';a.appendChild(m);
+  relGrid.appendChild(a);
+});
+
+/* ── 评论数据 ── */
+const comments=[
+  {avatar:'https://i.pravatar.cc/72?u=1',name:'光影猎人',text:'太棒了！这张的光线运用非常到位，尤其是第三张，构图和曝光都恰到好处。',time:'2小时前'},
+  {avatar:'https://i.pravatar.cc/72?u=2',name:'旅行者小王',text:'请问这是在哪里拍的？想去打卡同款机位！',time:'5小时前'},
+  {avatar:'https://i.pravatar.cc/72?u=3',name:'摄影师老李',text:'色彩控制很舒服，没有过度饱和，保留了自然的质感。',time:'昨天'},
+  {avatar:'https://i.pravatar.cc/72?u=4',name:'视觉设计师Amy',text:'收藏了，作为参考素材。这种色调很适合做海报背景。',time:'2天前'},
+  {avatar:'https://i.pravatar.cc/72?u=5',name:'摄影爱好者',text:'请问用的什么镜头拍的？虚化效果很好看',time:'3天前'}
+];
+const cList=document.getElementById('commentList');
+comments.forEach(c=>{
+  const li=document.createElement('li');li.className='comment-item';
+  li.innerHTML='<img class="c-avatar" src="'+c.avatar+'" alt=""><div class="c-body"><div class="c-name">'+c.name+'</div><div class="c-text">'+c.text+'</div><div class="c-time">'+c.time+'</div></div>';
+  cList.appendChild(li);
+});
+
+/* ── 交互 ── */
+let liked=false;
+function toggleLike(btn){
+  liked=!liked;
+  btn.querySelector('.icon').style.color=liked?'#e74c3c':'';
+  btn.querySelector('.icon').textContent=liked?'♥':'♡';
+  document.getElementById('likeCount').textContent=liked?(128+1):128;
+}
+function shareWork(){
+  if(navigator.share){
+    navigator.share({title:document.title,url:location.href});
+  }else{
+    prompt('复制链接分享：',location.href);
+  }
+}
+function postComment(){
+  const text=document.getElementById('commentText').value.trim();
+  if(!text)return;
+  const li=document.createElement('li');li.className='comment-item';
+  li.innerHTML='<img class="c-avatar" src="https://i.pravatar.cc/72?u=me" alt=""><div class="c-body"><div class="c-name">我</div><div class="c-text">'+text+'</div><div class="c-time">刚刚</div></div>';
+  cList.insertBefore(li,cList.firstChild);
+  document.getElementById('commentText').value='';
+}
+</script>
+</body>
+</html>
