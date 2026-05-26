@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>人像摄影</title>
+<title>Photography Portfolio</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
@@ -169,8 +169,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 </div>
 
 <!-- ═══ 瀑布流 ═══ -->
-<section class="Atoooooom-section">
-  <div class="Atoooooom-grid" id="galleryGrid"></div>
+<section class="gallery-section">
+  <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
   <!-- ═══ 分类筛选 ═══ -->
@@ -233,7 +233,7 @@ const cats=['landscape','portrait','street','architecture','night'];
 const catNames={landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
 const sizes=[[800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],[680,500],[420,600],[780,600],[520,600],[650,550]];
 const grid=document.getElementById('galleryGrid');
-cats.forEach(cat=>{sizes.forEach(([w,h],i)=>{const d=document.createElement('div');d.className='gallery-item';d.dataset.category=cat;d.innerHTML='<img src="https://picsum.photos/seed/'+cat+i+'/'+w+'/'+h+'" alt="'+catNames[cat]+' '+(i+1)+'"><div class="caption"><span>'+catNames[cat]+' '+(i+1)+'</span></div>';d.onclick=()=>window.open('https://huaban.com/discovery','_blank');grid.appendChild(d)})});
+cats。forEach(cat=>{sizes.forEach(([w,h],i)=>{const d=document.createElement('div');d.className='gallery-item';d.dataset.category=cat;d.innerHTML='<img src="https://picsum.photos/seed/'+cat+i+'/'+w+'/'+h+'" alt="'+catNames[cat]+' '+(i+1)+'"><div class="caption"><span>'+catNames[cat]+' '+(i+1)+'</span></div>';d.onclick=()=>window.open('https://huaban.com/discovery','_blank');grid.appendChild(d)})});
 </script>
 </body>
 </html>
