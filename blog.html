@@ -1,208 +1,143 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>日志 — Photography Portfolio</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; }
-    .header {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
-      background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .header h1 { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; }
-    .header h1 a { color: #fff; text-decoration: none; }
-    .header nav { display: flex; align-items: center; }
-    .header nav > a { color: #ccc; text-decoration: none; margin-left: 30px; font-size: 0.9rem; letter-spacing: 1px; }
-    .header nav > a:hover { color: #fff; }
-    .nav-dropdown { position: relative; margin-left: 30px; }
-    .nav-dropdown > a { color: #ccc; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; }
-    .nav-dropdown > a:hover { color: #fff; }
-    .nav-dropdown-menu {
-      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      background: rgba(20,20,20,0.95); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 8px 0; min-width: 140px; margin-top: 12px;
-      backdrop-filter: blur(20px); z-index: 200;
-    }
-    .nav-dropdown-menu::before {
-      content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-      border-left: 6px solid transparent; border-right: 6px solid transparent;
-      border-bottom: 6px solid rgba(255,255,255,0.1);
-    }
-    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-    .nav-dropdown-menu a {
-      display: block; color: #aaa; text-decoration: none; padding: 10px 24px;
-      font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s; white-space: nowrap;
-    }
-    .nav-dropdown-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>日志 — Photography Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
+.header{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-size:1.2rem;font-weight:300;letter-spacing:4px}
+.header h1 a{color:#fff;text-decoration:none}
+.header nav{display:flex;align-items:center}
+.header nav>a{color:#ccc;text-decoration:none;margin-left:28px;font-size:.9rem;letter-spacing:1px}
+.header nav>a:hover{color:#fff}
+.nav-dropdown{position:relative;margin-left:28px}
+.nav-dropdown>a{color:#ccc;text-decoration:none;font-size:.9rem;letter-spacing:1px;cursor:pointer}
+.nav-dropdown>a:hover{color:#fff}
+.dd-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,20,20,.97);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 0;min-width:140px;backdrop-filter:blur(20px);z-index:200}
+.dd-menu::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(255,255,255,.1)}
+.nav-dropdown:hover .dd-menu,.nav-dropdown.open .dd-menu{display:block}
+.dd-menu a{display:block;color:#aaa;text-decoration:none;padding:10px 24px;font-size:.85rem;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.dd-menu a:hover{color:#fff;background:rgba(255,255,255,.08)}
 
-    .hero {
-      padding: 140px 40px 80px; max-width: 1000px; margin: 0 auto; text-align: center;
-    }
-    .hero h2 { font-weight: 200; font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 16px; }
-    .hero p { color: #888; font-size: 1rem; line-height: 1.8; }
+.page-hero{padding:140px 40px 60px;text-align:center}
+.page-hero h2{font-weight:200;font-size:2.2rem;letter-spacing:3px;margin-bottom:12px}
+.page-hero p{color:#888;font-size:.95rem}
 
-    .blog-section {
-      padding: 40px; max-width: 900px; margin: 0 auto;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .blog-section h3 {
-      font-weight: 300; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 30px;
-      padding-left: 16px; border-left: 2px solid rgba(255,255,255,0.3);
-    }
-    .post-list { list-style: none; padding: 0; }
-    .post-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: all 0.2s; cursor: pointer; text-decoration: none;
-    }
-    .post-item:hover { padding-left: 10px; }
-    .post-item .title { color: #ccc; font-size: 0.95rem; transition: color 0.2s; }
-    .post-item:hover .title { color: #fff; }
-    .post-item .meta { color: #555; font-size: 0.8rem; letter-spacing: 1px; white-space: nowrap; }
-    .post-item .tag {
-      display: inline-block; background: rgba(255,255,255,0.06); border-radius: 12px;
-      padding: 2px 10px; font-size: 0.7rem; color: #888; margin-left: 10px;
-    }
+.blog-section{padding:60px 40px;max-width:800px;margin:0 auto;border-top:1px solid rgba(255,255,255,.05)}
+.blog-section h3{font-weight:300;font-size:1.3rem;letter-spacing:2px;margin-bottom:24px;padding-left:16px;border-left:2px solid rgba(255,255,255,.3)}
+.post-list{list-style:none}
+.post-item{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.04);text-decoration:none;color:inherit;transition:all .2s}
+.post-item:hover{padding-left:10px}
+.post-item .title{font-size:.95rem;letter-spacing:.5px;color:#ddd}
+.post-item .meta{color:#666;font-size:.8rem;white-space:nowrap}
+.post-item .meta .tag{display:inline-block;background:rgba(255,255,255,.06);border-radius:12px;padding:2px 10px;font-size:.7rem;color:#888;margin-left:8px}
 
-    .footer-bottom {
-      padding: 30px 40px; text-align: center; color: #444; font-size: 0.75rem;
-      letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px;
-    }
+.footer{padding:30px 40px;text-align:center;color:#444;font-size:.75rem;letter-spacing:1px;border-top:1px solid rgba(255,255,255,.05);margin-top:60px}
 
-    @media (max-width: 768px) {
-      .header { padding: 16px 20px; }
-      .hero { padding: 120px 20px 60px; }
-      .blog-section { padding: 40px 20px; }
-      .post-item { flex-direction: column; align-items: flex-start; gap: 6px; }
-      .header nav > a, .nav-dropdown { margin-left: 16px; }
-      .header nav > a, .nav-dropdown > a { font-size: 0.8rem; }
-    }
-  </style>
+@media(max-width:768px){
+  .header{padding:16px 20px}
+  .page-hero{padding:120px 20px 40px}
+  .blog-section{padding:40px 20px}
+  .post-item{flex-direction:column;align-items:flex-start;gap:6px}
+  .header nav>a,.nav-dropdown{margin-left:14px}
+  .header nav>a,.nav-dropdown>a{font-size:.78rem}
+}
+</style>
 </head>
 <body>
 
-  <header class="header">
-    <h1><a href="index.html">Gallery</a></h1>
-    <nav>
-      <a href="index.html">首页</a>
-      <div class="nav-dropdown">
-        <a href="#">作品 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="gallery.html?category=landscape">风景</a>
-          <a href="gallery.html?category=portrait">人像</a>
-          <a href="gallery.html?category=street">街拍</a>
-          <a href="gallery.html?category=architecture">建筑</a>
-          <a href="gallery.html?category=night">夜景</a>
-        </div>
+<header class="header">
+  <h1><a href="index.html">Gallery</a></h1>
+  <nav>
+    <a href="index.html">首页</a>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">作品 ▾</a>
+      <div class="dd-menu">
+        <a href="gallery.html?category=landscape">风景</a>
+        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=street">街拍</a>
+        <a href="gallery.html?category=architecture">建筑</a>
+        <a href="gallery.html?category=night">夜景</a>
       </div>
-      <div class="nav-dropdown">
-        <a href="#">关于 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="about.html#bio">个人简介</a>
-          <a href="about.html#philosophy">摄影理念</a>
-          <a href="about.html#gear">设备器材</a>
-        </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">关于 ▾</a>
+      <div class="dd-menu">
+        <a href="about.html#bio">个人简介</a>
+        <a href="about.html#philosophy">摄影理念</a>
+        <a href="about.html#gear">设备器材</a>
       </div>
-      <div class="nav-dropdown">
-        <a href="#">服务 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="services.html#portrait">约拍写真</a>
-          <a href="services.html#commercial">商业拍摄</a>
-          <a href="services.html#retouching">后期修图</a>
-          <a href="services.html#workshop">摄影教学</a>
-        </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">服务 ▾</a>
+      <div class="dd-menu">
+        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#commercial">商业拍摄</a>
+        <a href="services.html#retouching">后期修图</a>
+        <a href="services.html#workshop">摄影教学</a>
       </div>
-      <div class="nav-dropdown">
-        <a href="#" style="color:#fff">日志 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="#notes">拍摄手记</a>
-          <a href="#travel">行程记录</a>
-          <a href="#tech">技术分享</a>
-        </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#" style="color:#fff">日志 ▾</a>
+      <div class="dd-menu">
+        <a href="#notes">拍摄手记</a>
+        <a href="#travel">行程记录</a>
+        <a href="#tech">技术分享</a>
       </div>
-      <div class="nav-dropdown">
-        <a href="#">联系 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="contact.html#inquiry">合作咨询</a>`n          <a href="contact.html#social">社交媒体</a>
-        </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">联系 ▾</a>
+      <div class="dd-menu">
+        <a href="contact.html#inquiry">合作咨询</a>
+        <a href="contact.html#social">社交媒体</a>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
 
-  <div class="hero">
-    <h2>摄影日志</h2>
-    <p>记录每一次快门背后的故事</p>
-  </div>
+<div class="page-hero">
+  <h2>日志</h2>
+  <p>记录拍摄背后的故事</p>
+</div>
 
-  <div class="blog-section" id="notes">
-    <h3>拍摄手记</h3>
-    <ul class="post-list">
-      <li><a class="post-item" href="post.html?id=rain-bund">
-        <span class="title">雨后的外滩：如何利用倒影构图</span>
-        <span class="meta">2024.03.15 <span class="tag">街拍</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=failed-portrait">
-        <span class="title">一次失败的人像拍摄教会我的事</span>
-        <span class="meta">2024.02.28 <span class="tag">人像</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=sunrise-sea">
-        <span class="title">凌晨四点的海边，等待日出的那束光</span>
-        <span class="meta">2024.01.20 <span class="tag">风景</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=skyline">
-        <span class="title">城市天际线：从不同视角看同一座城</span>
-        <span class="meta">2023.12.10 <span class="tag">建筑</span></span>
-      </a></li>
-    </ul>
-  </div>
+<div class="blog-section" id="notes">
+  <h3>拍摄手记</h3>
+  <ul class="post-list">
+    <li><a class="post-item" href="post.html?id=rain-bund"><span class="title">雨后的外滩：如何利用倒影构图</span><span class="meta">2024.03.15 <span class="tag">街拍</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=failed-portrait"><span class="title">一次失败的人像拍摄教会我的事</span><span class="meta">2024.02.28 <span class="tag">人像</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=sunrise-sea"><span class="title">凌晨四点的海边，等待日出的那束光</span><span class="meta">2024.01.20 <span class="tag">风景</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=skyline"><span class="title">城市天际线：从不同视角看同一座城</span><span class="meta">2023.12.10 <span class="tag">建筑</span></span></a></li>
+  </ul>
+</div>
 
-  <div class="blog-section" id="travel">
-    <h3>行程记录</h3>
-    <ul class="post-list">
-      <li><a class="post-item" href="post.html?id=yunnan">
-        <span class="title">云南 7 天自驾：从大理到香格里拉</span>
-        <span class="meta">2024.04.01 <span class="tag">云南</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=tibet">
-        <span class="title">西藏阿里大环线：世界屋脊的光影</span>
-        <span class="meta">2024.01.05 <span class="tag">西藏</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=japan">
-        <span class="title">日本关西：京都的秋与奈良的鹿</span>
-        <span class="meta">2023.11.18 <span class="tag">日本</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=xinjiang">
-        <span class="title">新疆伊犁：六月的薰衣草与雪山</span>
-        <span class="meta">2023.06.22 <span class="tag">新疆</span></span>
-      </a></li>
-    </ul>
-  </div>
+<div class="blog-section" id="travel">
+  <h3>行程记录</h3>
+  <ul class="post-list">
+    <li><a class="post-item" href="post.html?id=yunnan"><span class="title">云南 7 天自驾：从大理到香格里拉</span><span class="meta">2024.04.01 <span class="tag">云南</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=tibet"><span class="title">西藏阿里大环线：世界屋脊的光影</span><span class="meta">2024.01.05 <span class="tag">西藏</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=japan"><span class="title">日本关西：京都的秋与奈良的鹿</span><span class="meta">2023.11.18 <span class="tag">日本</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=xinjiang"><span class="title">新疆伊犁：六月的薰衣草与雪山</span><span class="meta">2023.06.22 <span class="tag">新疆</span></span></a></li>
+  </ul>
+</div>
 
-  <div class="blog-section" id="tech">
-    <h3>技术分享</h3>
-    <ul class="post-list">
-      <li><a class="post-item" href="post.html?id=a7rv">
-        <span class="title">Sony A7R V 实战体验：6100 万像素值不值？</span>
-        <span class="meta">2024.03.20 <span class="tag">器材</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=lr-color">
-        <span class="title">Lightroom 调色思路：如何建立自己的色彩风格</span>
-        <span class="meta">2024.02.14 <span class="tag">后期</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=astro">
-        <span class="title">星空摄影全攻略：从选址到后期堆栈</span>
-        <span class="meta">2024.01.10 <span class="tag">教程</span></span>
-      </a></li>
-      <li><a class="post-item" href="post.html?id=street-comp">
-        <span class="title">街拍构图法则：9 种让你的照片更有故事感的方法</span>
-        <span class="meta">2023.11.05 <span class="tag">教程</span></span>
-      </a></li>
-    </ul>
-  </div>
+<div class="blog-section" id="tech">
+  <h3>技术分享</h3>
+  <ul class="post-list">
+    <li><a class="post-item" href="post.html?id=a7rv"><span class="title">Sony A7R V 实战体验：6100 万像素值不值？</span><span class="meta">2024.03.20 <span class="tag">器材</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=lr-color"><span class="title">Lightroom 调色思路：如何建立自己的色彩风格</span><span class="meta">2024.02.14 <span class="tag">后期</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=astro"><span class="title">星空摄影全攻略：从选址到后期堆栈</span><span class="meta">2024.01.10 <span class="tag">教程</span></span></a></li>
+    <li><a class="post-item" href="post.html?id=street-comp"><span class="title">街拍构图法则：9 种让你的照片更有故事感的方法</span><span class="meta">2023.11.05 <span class="tag">教程</span></span></a></li>
+  </ul>
+</div>
 
-  <div class="footer-bottom">© 2024 Photography Portfolio — All Rights Reserved</div>
+<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+
+<script>
+document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
+function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+</script>
 </body>
 </html>
