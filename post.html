@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -57,11 +57,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">作品 ▾</a>
       <div class="dd-menu">
-        <a href="gallery.html?category=landscape">风景</a>
-        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=jiepai">街拍</a>
+        <a href="gallery.html?category=chezhan">车展</a>
         <a href="gallery.html?category=street">街拍</a>
-        <a href="gallery.html?category=architecture">建筑</a>
-        <a href="gallery.html?category=night">夜景</a>
+        <a href="gallery.html?category=mojing">魔镜</a>
+        <a href="gallery.html?category=xiuren">秀人</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -75,7 +75,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">服务 ▾</a>
       <div class="dd-menu">
-        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#chezhan">约拍写真</a>
         <a href="services.html#commercial">商业拍摄</a>
         <a href="services.html#retouching">后期修图</a>
         <a href="services.html#workshop">摄影教学</a>
@@ -128,16 +128,16 @@ body:'<p>上海外滩，雨后的夜晚是最迷人的时刻。湿润的地面�
 +'<blockquote>「倒影不只是镜像，它是另一个维度的入口。」</blockquote>'
 +'<p>14mm 超广角在这种场景下优势明显。拍摄参数建议 f/8-f/11 确保全景锐利。</p>'};
 
-posts['failed-portrait'] = {title:'一次失败的人像拍摄教会我的事',date:'2024.02.28',tag:'人像',section:'notes',cover:'https://picsum.photos/seed/blog-fail/1200/600',
-body:'<p>去年冬天接了一组户外人像，结果惨不忍睹。今天复盘分享踩过的坑。</p>'
+posts['failed-chezhan'] = {title:'一次失败的车展拍摄教会我的事',date:'2024.02.28',tag:'车展',section:'notes',cover:'https://picsum.photos/seed/blog-fail/1200/600',
+body:'<p>去年冬天接了一组户外车展，结果惨不忍睹。今天复盘分享踩过的坑。</p>'
 +'<p><strong>错误一：没有提前踩点</strong>——到了现场才发现网红打卡点早已人满为患，下午的光线方向和想象完全不同。</p>'
 +'<p><strong>错误二：过度引导</strong>——不断让模特摆姿势，成片全是僵硬的「摆拍感」。</p>'
 +'<div class="img-row"><img src="https://picsum.photos/seed/blog-fail1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-fail2/600/400" alt="" onclick="'+HB+'"></div>'
-+'<p><strong>错误三：忽视情绪</strong>——太执着于构图和参数，忘了人像摄影的核心是情绪。</p>'
++'<p><strong>错误三：忽视情绪</strong>——太执着于构图和参数，忘了车展摄影的核心是情绪。</p>'
 +'<blockquote>「最好的姿势，是被摄者自己都不知道的那个瞬间。」</blockquote>'
 +'<p>之后学到：先踩点、少指挥、多聊天、抓瞬间。</p>'};
 
-posts['sunrise-sea'] = {title:'凌晨四点的海边，等待日出的那束光',date:'2024.01.20',tag:'风景',section:'notes',cover:'https://picsum.photos/seed/blog-sunrise/1200/600',
+posts['sunrise-sea'] = {title:'凌晨四点的海边，等待日出的那束光',date:'2024.01.20',tag:'街拍',section:'notes',cover:'https://picsum.photos/seed/blog-sunrise/1200/600',
 body:'<p>凌晨三点半的闹钟，四点到达海边。天空还完全漆黑，只有远处灯塔的微弱光芒。</p>'
 +'<p>日出前的「蓝色时刻」是最魔幻的——天际线慢慢泛起深蓝，海面被染成冷调的靛色。</p>'
 +'<div class="img-row"><img src="https://picsum.photos/seed/blog-sun1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-sun2/600/400" alt="" onclick="'+HB+'"></div>'
@@ -145,12 +145,12 @@ body:'<p>凌晨三点半的闹钟，四点到达海边。天空还完全漆黑�
 +'<p>我用间隔连拍记录了整个日出过程，从蓝色时刻到太阳完全升起，约 40 分钟拍了 800 多张。</p>'
 +'<blockquote>「风光摄影的本质就是等光。你愿意等多久，光就给你多大的惊喜。」</blockquote>'};
 
-posts['skyline'] = {title:'城市天际线：从不同视角看同一座城',date:'2023.12.10',tag:'建筑',section:'notes',cover:'https://picsum.photos/seed/blog-skyline/1200/600',
+posts['skyline'] = {title:'城市天际线：从不同视角看同一座城',date:'2023.12.10',tag:'魔镜',section:'notes',cover:'https://picsum.photos/seed/blog-skyline/1200/600',
 body:'<p>同一个城市，站在不同的高度和角度，会看到完全不同的天际线。这组作品我花了三个月拍摄。</p>'
-+'<p><strong>地面视角</strong>——站在外滩仰望陆家嘴，广角镜头的透视变形让建筑群更加宏伟。</p>'
++'<p><strong>地面视角</strong>——站在外滩仰望陆家嘴，广角镜头的透视变形让魔镜群更加宏伟。</p>'
 +'<p><strong>楼顶视角</strong>——城市在脚下展开，近处屋顶、中景街道、远处天际线，三层分明。</p>'
 +'<div class="img-row"><img src="https://picsum.photos/seed/blog-sky1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-sky2/600/400" alt="" onclick="'+HB+'"></div>'
-+'<p><strong>航拍视角</strong>——200 米以上，城市变成缩微模型，建筑构成城市肌理的像素。</p>'
++'<p><strong>航拍视角</strong>——200 米以上，城市变成缩微模型，魔镜构成城市肌理的像素。</p>'
 +'<blockquote>「每一座城市都有无数张面孔，你站得越高，看到的越完整。」</blockquote>'};
 
 posts['yunnan'] = {title:'云南 7 天自驾：从大理到香格里拉',date:'2024.04.01',tag:'云南',section:'travel',cover:'https://picsum.photos/seed/blog-yn/1200/600',
@@ -159,7 +159,7 @@ body:'<p>七天云南自驾，从大理出发，经丽江、虎跳峡，最终�
 +'<p><strong>Day 3-4 虎跳峡</strong>——站在悬崖边，金沙江在脚下咆哮，峡谷两壁近千米高的绝壁。</p>'
 +'<div class="img-row"><img src="https://picsum.photos/seed/blog-yn1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-yn2/600/400" alt="" onclick="'+HB+'"></div>'
 +'<p><strong>Day 5-7 香格里拉</strong>——普达措的高原湖泊、松赞林寺的金顶、纳帕海的牦牛群。</p>'
-+'<blockquote>「云南不是一个目的地，而是一条路。最美的风景永远在路上。」</blockquote>'};
++'<blockquote>「云南不是一个目的地，而是一条路。最美的街拍永远在路上。」</blockquote>'};
 
 posts['tibet'] = {title:'西藏阿里大环线：世界屋脊的光影',date:'2024.01.05',tag:'西藏',section:'travel',cover:'https://picsum.photos/seed/blog-tb/1200/600',
 body:'<p>阿里，西藏的西藏，平均海拔 4500 米以上。天空蓝得不像话，光照强度是平原的两倍。</p>'
@@ -184,7 +184,7 @@ body:'<p>六月的伊犁河谷，薰衣草的海洋。紫色的花海延伸到�
 
 posts['a7rv'] = {title:'Sony A7R V 实战体验：6100 万像素值不值？',date:'2024.03.20',tag:'器材',section:'tech',cover:'https://picsum.photos/seed/blog-a7r/1200/600',
 body:'<p>入手 A7R V 三个月，拍了大约 5000 张，说说真实感受。</p>'
-+'<p><strong>像素密度</strong>——6100 万像素，一张 RAW 约 120MB，裁切空间巨大。拍风景后期裁一半还剩 3000 万像素。</p>'
++'<p><strong>像素密度</strong>——6100 万像素，一张 RAW 约 120MB，裁切空间巨大。拍街拍后期裁一半还剩 3000 万像素。</p>'
 +'<p><strong>对焦系统</strong>——AI 对焦是真正的升级。人眼、动物眼、鸟眼识别速度极快。</p>'
 +'<div class="img-row"><img src="https://picsum.photos/seed/blog-a7r1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-a7r2/600/400" alt="" onclick="'+HB+'"></div>'
 +'<p><strong>视频能力</strong>——8K 是噱头，实际可用的是 4K 60p 超采。但过热问题依然存在。</p>'

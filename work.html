@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -86,11 +86,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">作品 ▾</a>
       <div class="dd-menu">
-        <a href="gallery.html?category=landscape">风景</a>
-        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=jiepai">街拍</a>
+        <a href="gallery.html?category=chezhan">车展</a>
         <a href="gallery.html?category=street">街拍</a>
-        <a href="gallery.html?category=architecture">建筑</a>
-        <a href="gallery.html?category=night">夜景</a>
+        <a href="gallery.html?category=mojing">魔镜</a>
+        <a href="gallery.html?category=xiuren">秀人</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -104,7 +104,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">服务 ▾</a>
       <div class="dd-menu">
-        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#chezhan">约拍写真</a>
         <a href="services.html#commercial">商业拍摄</a>
         <a href="services.html#retouching">后期修图</a>
         <a href="services.html#workshop">摄影教学</a>
@@ -148,8 +148,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <a id="nextLink" href="#">下一张 &#10095;</a>
   </div>
 
-  <h1 class="work-title" id="workTitle">风景 01</h1>
-  <p class="work-desc" id="workDesc">用镜头捕捉那些稍纵即逝的瞬间。光线在建筑间穿梭，在城市中流淌，在每一个不经意的角落里留下痕迹。</p>
+  <h1 class="work-title" id="workTitle">街拍 01</h1>
+  <p class="work-desc" id="workDesc">用镜头捕捉那些稍纵即逝的瞬间。光线在魔镜间穿梭，在城市中流淌，在每一个不经意的角落里留下痕迹。</p>
 
   <div class="action-bar">
     <button class="action-btn" onclick="toggleLike(this)"><span class="icon">&#9825;</span> 喜欢<span class="count" id="likeCount">128</span></button>
@@ -181,30 +181,30 @@ function toggleDD(el) {
 }
 
 var TOTAL = 30;
-var catNames = {landscape:'风景', portrait:'人像', street:'街拍', architecture:'建筑', night:'夜景'};
-var seeds    = {landscape:'land', portrait:'port', street:'str', architecture:'arch', night:'night'};
+var catNames = {jiepai:'街拍', chezhan:'车展', street:'街拍', mojing:'魔镜', xiuren:'秀人'};
+var seeds    = {jiepai:'land', chezhan:'port', street:'str', mojing:'arch', xiuren:'xiuren'};
 var sizes    = [
   [1200,800],[900,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
   [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],
   [900,600],[540,640],[760,580],[500,560],[820,600],[600,620],[680,560],[440,600],[780,500],[560,640]
 ];
 var tagMap = {
-  landscape:    ['风光','自然','旅行','日出','山水','户外'],
-  portrait:     ['人像','写真','情绪','光影','肖像','艺术'],
+  jiepai:    ['风光','自然','旅行','日出','山水','户外'],
+  chezhan:     ['车展','写真','情绪','光影','肖像','艺术'],
   street:       ['街拍','城市','纪实','人文','黑白','瞬间'],
-  architecture: ['建筑','空间','线条','几何','结构','设计'],
-  night:        ['夜景','城市','长曝光','星空','霓虹','暗调']
+  mojing: ['魔镜','空间','线条','几何','结构','设计'],
+  xiuren:        ['秀人','城市','长曝光','星空','霓虹','暗调']
 };
 var descs = {
-  landscape:    '山川湖海，晨昏四季。每一束光都有它的故事，每一片云都在诉说时间。',
-  portrait:     '人像不只是记录外表，而是捕捉灵魂的瞬间。眼神里的情绪，姿态中的张力。',
+  jiepai:    '山川湖海，晨昏四季。每一束光都有它的故事，每一片云都在诉说时间。',
+  chezhan:     '车展不只是记录外表，而是捕捉灵魂的瞬间。眼神里的情绪，姿态中的张力。',
   street:       '城市是最好的舞台，街头是最真实的剧场。不摆拍，只等待。',
-  architecture: '建筑的线条是凝固的音乐，光影是流动的节拍。在钢筋水泥中寻找诗意。',
-  night:        '当城市入睡，光影才真正醒来。霓虹、星空、车流——夜是另一番天地。'
+  mojing: '魔镜的线条是凝固的音乐，光影是流动的节拍。在钢筋水泥中寻找诗意。',
+  xiuren:        '当城市入睡，光影才真正醒来。霓虹、星空、车流——夜是另一番天地。'
 };
 
 var params = new URLSearchParams(location.search);
-var cat = params.get('category') || 'landscape';
+var cat = params.get('category') || 'jiepai';
 var idx = parseInt(params.get('index')) || 0;
 if (idx < 0) idx = 0;
 if (idx >= TOTAL) idx = TOTAL - 1;
@@ -220,7 +220,7 @@ document.getElementById('workPhoto').appendChild(img);
 
 document.title = catName + ' · ' + (idx + 1) + ' — 失踪的建文帝';
 document.getElementById('workTitle').textContent = catName + ' · ' + String(idx + 1).padStart(2, '0');
-document.getElementById('workDesc').textContent = descs[cat] || descs.landscape;
+document.getElementById('workDesc').textContent = descs[cat] || descs.jiepai;
 document.getElementById('currentNum').textContent = idx + 1;
 document.getElementById('totalNum').textContent = TOTAL;
 
@@ -238,7 +238,7 @@ if (idx >= TOTAL - 1) {
 }
 
 var tagsEl = document.getElementById('workTags');
-var tags = tagMap[cat] || tagMap.landscape;
+var tags = tagMap[cat] || tagMap.jiepai;
 tags.forEach(function(t) {
   var a = document.createElement('a');
   a.className = 'tag';

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -55,11 +55,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">作品 ▾</a>
       <div class="dd-menu">
-        <a href="gallery.html?category=landscape">风景</a>
-        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=jiepai">街拍</a>
+        <a href="gallery.html?category=chezhan">车展</a>
         <a href="gallery.html?category=street">街拍</a>
-        <a href="gallery.html?category=architecture">建筑</a>
-        <a href="gallery.html?category=night">夜景</a>
+        <a href="gallery.html?category=mojing">魔镜</a>
+        <a href="gallery.html?category=xiuren">秀人</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -73,7 +73,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">服务 ▾</a>
       <div class="dd-menu">
-        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#chezhan">约拍写真</a>
         <a href="services.html#commercial">商业拍摄</a>
         <a href="services.html#retouching">后期修图</a>
         <a href="services.html#workshop">摄影教学</a>
@@ -117,8 +117,8 @@ function toggleDD(el) {
   if (!w) el.classList.add('open');
 }
 
-var catNames = {landscape:'风景', portrait:'人像', street:'街拍', architecture:'建筑', night:'夜景'};
-var seeds    = {landscape:'land', portrait:'port', street:'str', architecture:'arch', night:'night'};
+var catNames = {jiepai:'街拍', chezhan:'车展', street:'街拍', mojing:'魔镜', xiuren:'秀人'};
+var seeds    = {jiepai:'land', chezhan:'port', street:'str', mojing:'arch', xiuren:'xiuren'};
 var sizes = [
   [800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
   [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],

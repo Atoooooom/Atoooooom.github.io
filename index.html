@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -94,11 +94,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">作品 ▾</a>
       <div class="dd-menu">
-        <a href="gallery.html?category=landscape">风景</a>
-        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=jiepai">街拍</a>
+        <a href="gallery.html?category=chezhan">车展</a>
         <a href="gallery.html?category=street">街拍</a>
-        <a href="gallery.html?category=architecture">建筑</a>
-        <a href="gallery.html?category=night">夜景</a>
+        <a href="gallery.html?category=mojing">魔镜</a>
+        <a href="gallery.html?category=xiuren">秀人</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -112,7 +112,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">服务 ▾</a>
       <div class="dd-menu">
-        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#chezhan">约拍写真</a>
         <a href="services.html#commercial">商业拍摄</a>
         <a href="services.html#retouching">后期修图</a>
         <a href="services.html#workshop">摄影教学</a>
@@ -156,11 +156,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 <div class="section-title">精选作品</div>
 <div class="filter-bar" id="filterBar">
   <button class="filter-btn active" data-filter="all">全部</button>
-  <button class="filter-btn" data-filter="landscape">风景</button>
-  <button class="filter-btn" data-filter="portrait">人像</button>
+  <button class="filter-btn" data-filter="jiepai">街拍</button>
+  <button class="filter-btn" data-filter="chezhan">车展</button>
   <button class="filter-btn" data-filter="street">街拍</button>
-  <button class="filter-btn" data-filter="architecture">建筑</button>
-  <button class="filter-btn" data-filter="night">夜景</button>
+  <button class="filter-btn" data-filter="mojing">魔镜</button>
+  <button class="filter-btn" data-filter="xiuren">秀人</button>
 </div>
 
 <!-- ── 瀑布流（30张/分类） ── -->
@@ -277,8 +277,8 @@ filterBtns.forEach(function(btn) {
 });
 
 /* ── 瀑布流（30张/分类 = 150张） ── */
-var cats = ['landscape','portrait','street','architecture','night'];
-var catNames = {landscape:'风景', portrait:'人像', street:'街拍', architecture:'建筑', night:'夜景'};
+var cats = ['jiepai','chezhan','street','mojing','xiuren'];
+var catNames = {jiepai:'街拍', chezhan:'车展', street:'街拍', mojing:'魔镜', xiuren:'秀人'};
 var sizes = [
   [800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
   [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],
