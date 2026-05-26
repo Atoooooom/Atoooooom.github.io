@@ -82,8 +82,9 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
-      <a href="#">日志 ▾</a>
+      <a href="blog.html">日志 ▾</a>
       <div class="dd-menu">
+        <a href="blog.html">日志列表</a>
         <a href="blog.html#notes">拍摄手记</a>
         <a href="blog.html#travel">行程记录</a>
         <a href="blog.html#tech">技术分享</a>
@@ -101,32 +102,135 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 
 <article class="article" id="articleBody"></article>
 
-<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+<div class="footer">&#169; 失踪的建文帝 &#8212; All Rights Reserved</div>
 
 <script>
-document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
-function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
+    if (!d.contains(e.target)) d.classList.remove('open');
+  });
+});
+function toggleDD(el) {
+  var w = el.classList.contains('open');
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+  if (!w) el.classList.add('open');
+}
 
-const HB="location.href='work.html'";
-const posts={
-'rain-bund':{title:'雨后的外滩：如何利用倒影构图',date:'2024.03.15',tag:'街拍',section:'notes',cover:'https://picsum.photos/seed/blog-rain/1200/600',body:`<p>上海外滩，雨后的夜晚是最迷人的时刻。湿润的地面如同一面巨大的镜子，将浦江两岸的灯火尽数收入其中。</p><p><strong>1. 低角度是王道</strong>——越贴近地面，倒影越完整。我通常会把相机放在离地面仅 10-20cm 的位置。</p><p><strong>2. 寻找积水区域</strong>——面积大、表面平整的积水区才是最佳选择。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-rain1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-rain2/600/400" alt="" onclick="${HB}"></div><p><strong>3. 对称与打破对称</strong>——适当打破对称会更有张力。可以把地平线放在画面三分之一处。</p><blockquote>「倒影不只是镜像，它是另一个维度的入口。」</blockquote><p>14mm 超广角在这种场景下优势明显。拍摄参数建议 f/8-f/11 确保全景锐利。</p>`},
-'failed-portrait':{title:'一次失败的人像拍摄教会我的事',date:'2024.02.28',tag:'人像',section:'notes',cover:'https://picsum.photos/seed/blog-fail/1200/600',body:`<p>去年冬天接了一组户外人像，结果惨不忍睹。今天复盘分享踩过的坑。</p><p><strong>错误一：没有提前踩点</strong>——到了现场才发现网红打卡点早已人满为患，下午的光线方向和想象完全不同。</p><p><strong>错误二：过度引导</strong>——不断让模特摆姿势，成片全是僵硬的「摆拍感」。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-fail1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-fail2/600/400" alt="" onclick="${HB}"></div><p><strong>错误三：忽视情绪</strong>——太执着于构图和参数，忘了人像摄影的核心是情绪。</p><blockquote>「最好的姿势，是被摄者自己都不知道的那个瞬间。」</blockquote><p>之后学到：先踩点、少指挥、多聊天、抓瞬间。</p>`},
-'sunrise-sea':{title:'凌晨四点的海边，等待日出的那束光',date:'2024.01.20',tag:'风景',section:'notes',cover:'https://picsum.photos/seed/blog-sunrise/1200/600',body:`<p>凌晨三点半的闹钟，四点到达海边。天空还完全漆黑，只有远处灯塔的微弱光芒。</p><p>日出前的「蓝色时刻」是最魔幻的——天际线慢慢泛起深蓝，海面被染成冷调的靛色。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-sun1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-sun2/600/400" alt="" onclick="${HB}"></div><p>当第一缕阳光刺破云层的那一刻，整片海面像被点燃了。金色、橙色、粉色在云层间流转。</p><p>我用间隔连拍记录了整个日出过程，从蓝色时刻到太阳完全升起，约 40 分钟拍了 800 多张。</p><blockquote>「风光摄影的本质就是等光。你愿意等多久，光就给你多大的惊喜。」</blockquote>`},
-'skyline':{title:'城市天际线：从不同视角看同一座城',date:'2023.12.10',tag:'建筑',section:'notes',cover:'https://picsum.photos/seed/blog-skyline/1200/600',body:`<p>同一个城市，站在不同的高度和角度，会看到完全不同的天际线。这组作品我花了三个月拍摄。</p><p><strong>地面视角</strong>——站在外滩仰望陆家嘴，广角镜头的透视变形让建筑群更加宏伟。</p><p><strong>楼顶视角</strong>——城市在脚下展开，近处屋顶、中景街道、远处天际线，三层分明。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-sky1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-sky2/600/400" alt="" onclick="${HB}"></div><p><strong>航拍视角</strong>——200 米以上，城市变成缩微模型，建筑构成城市肌理的像素。</p><blockquote>「每一座城市都有无数张面孔，你站得越高，看到的越完整。」</blockquote>`},
-'yunnan':{title:'云南 7 天自驾：从大理到香格里拉',date:'2024.04.01',tag:'云南',section:'travel',cover:'https://picsum.photos/seed/blog-yn/1200/600',body:`<p>七天云南自驾，从大理出发，经丽江、虎跳峡，最终到香格里拉。</p><p><strong>Day 1-2 大理</strong>——洱海环湖是经典路线，但更推荐清晨的喜洲古镇。</p><p><strong>Day 3-4 虎跳峡</strong>——站在悬崖边，金沙江在脚下咆哮，峡谷两壁近千米高的绝壁。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-yn1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-yn2/600/400" alt="" onclick="${HB}"></div><p><strong>Day 5-7 香格里拉</strong>——普达措的高原湖泊、松赞林寺的金顶、纳帕海的牦牛群。</p><blockquote>「云南不是一个目的地，而是一条路。最美的风景永远在路上。」</blockquote>`},
-'tibet':{title:'西藏阿里大环线：世界屋脊的光影',date:'2024.01.05',tag:'西藏',section:'travel',cover:'https://picsum.photos/seed/blog-tb/1200/600',body:`<p>阿里，西藏的西藏，平均海拔 4500 米以上。天空蓝得不像话，光照强度是平原的两倍。</p><p>大环线全程约 1300 公里，用了 10 天完成。玛旁雍错、冈仁波齐、古格王朝遗址、扎达土林……</p><div class="img-row"><img src="https://picsum.photos/seed/blog-tb1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-tb2/600/400" alt="" onclick="${HB}"></div><p>在阿里拍照最大的挑战不是技术，而是身体。4500 米的海拔下，走路都喘。</p><blockquote>「在阿里，你离天空最近，离尘世最远。」</blockquote>`},
-'japan':{title:'日本关西：京都的秋与奈良的鹿',date:'2023.11.18',tag:'日本',section:'travel',cover:'https://picsum.photos/seed/blog-jp/1200/600',body:`<p>十一月的关西，是属于红叶的季节。京都的寺庙在红叶映衬下美到失语。</p><p><strong>京都推荐</strong>：东福寺（红叶名所之首）、永观堂（夜间灯光红叶）、岚山嵯峨野竹林。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-jp1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-jp2/600/400" alt="" onclick="${HB}"></div><p><strong>奈良</strong>——春日大社的石灯笼参道配上落叶，鹿群在晨雾中穿行。</p><blockquote>「京都教会我一件事：美不需要广角来收纳，一个小景就足以让人驻足。」</blockquote>`},
-'xinjiang':{title:'新疆伊犁：六月的薰衣草与雪山',date:'2023.06.22',tag:'新疆',section:'travel',cover:'https://picsum.photos/seed/blog-xj/1200/600',body:`<p>六月的伊犁河谷，薰衣草的海洋。紫色的花海延伸到天际线，背景是终年积雪的天山。</p><p>霍城县的薰衣草庄园是核心拍摄地，但更推荐去周边小村庄，游客少，花田更自然。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-xj1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-xj2/600/400" alt="" onclick="${HB}"></div><p>赛里木湖的蓝冰、那拉提的草原、喀拉峻的人体草原，每一处都是壁纸级的存在。</p><blockquote>「新疆是摄影师的加油站，来一次，够拍一年。」</blockquote>`},
-'a7rv':{title:'Sony A7R V 实战体验：6100 万像素值不值？',date:'2024.03.20',tag:'器材',section:'tech',cover:'https://picsum.photos/seed/blog-a7r/1200/600',body:`<p>入手 A7R V 三个月，拍了大约 5000 张，说说真实感受。</p><p><strong>像素密度</strong>——6100 万像素，一张 RAW 约 120MB，裁切空间巨大。拍风景后期裁一半还剩 3000 万像素。</p><p><strong>对焦系统</strong>——AI 对焦是真正的升级。人眼、动物眼、鸟眼识别速度极快。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-a7r1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-a7r2/600/400" alt="" onclick="${HB}"></div><p><strong>视频能力</strong>——8K 是噱头，实际可用的是 4K 60p 超采。但过热问题依然存在。</p><blockquote>「6100 万像素不是必需品，但有了它你会变得更自由。裁切自由就是构图自由。」</blockquote>`},
-'lr-color':{title:'Lightroom 调色思路：如何建立自己的色彩风格',date:'2024.02.14',tag:'后期',section:'tech',cover:'https://picsum.photos/seed/blog-lr/1200/600',body:`<p>很多新手拿到 Lightroom 第一件事就是找预设、套滤镜。但理解调色核心逻辑后，不需要任何预设。</p><p><strong>第一步：定基调</strong>——这张照片想传达什么情绪？暖调 6000K+，冷调 4000K 以下。</p><p><strong>第二步：压高光提阴影</strong>——高光 -50 到 -80，阴影 +30 到 +60，画面立刻有层次感。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-lr1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-lr2/600/400" alt="" onclick="${HB}"></div><p><strong>第三步：HSL 精修</strong>——橙色饱和度拉低明亮度提高，肤色通透；蓝色色相往青色偏，天空有日系感。</p><blockquote>「调色不是加滤镜，是给照片写情绪。」</blockquote>`},
-'astro':{title:'星空摄影全攻略：从选址到后期堆栈',date:'2024.01.10',tag:'教程',section:'tech',cover:'https://picsum.photos/seed/blog-star/1200/600',body:`<p>拍星空是摄影里最浪漫也最折腾的分支。这篇从 0 讲起，覆盖全流程。</p><p><strong>选址</strong>——远离城市光污染是第一要务。用 Light Pollution Map 查找暗空区域。</p><p><strong>器材</strong>——14mm f/1.8 或 20mm f/1.4 是星空利器。三脚架必须稳。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-star1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-star2/600/400" alt="" onclick="${HB}"></div><p><strong>500 法则</strong>——快门速度 = 500 ÷ 焦距。14mm 最长约 35 秒。ISO 3200-6400，光圈全开。</p><p><strong>后期堆栈</strong>——拍 20-30 张同机位，PS 中用「统计→中值堆栈」降噪。</p><blockquote>「拍星空最大的技巧不是参数，是愿意在零下的夜里站三个小时的那份执着。」</blockquote>`},
-'street-comp':{title:'街拍构图法则：9 种让你的照片更有故事感的方法',date:'2023.11.05',tag:'教程',section:'tech',cover:'https://picsum.photos/seed/blog-st/1200/600',body:`<p>街拍最迷人的地方在于不可预知性，但好的构图能让随机变成必然。</p><p><strong>1. 框架构图</strong>——门洞、窗户、拱桥，任何「框」都能把观者视线引向主体。</p><p><strong>2. 前景遮挡</strong>——用行人、栏杆、树枝做前景，画面立刻多了纵深。</p><div class="img-row"><img src="https://picsum.photos/seed/blog-st1/600/400" alt="" onclick="${HB}"><img src="https://picsum.photos/seed/blog-st2/600/400" alt="" onclick="${HB}"></div><p><strong>3. 对角线</strong>·<strong>4. 留白</strong>·<strong>5. 重复与打破</strong>·<strong>6. 倒影</strong>·<strong>7. 光影切割</strong>·<strong>8. 仰视/俯视</strong>·<strong>9. 减法</strong>——每种构图思路都有独特的叙事力量。</p><blockquote>「构图是选择的艺术。你选择留下什么，比选择拍什么更重要。」</blockquote>`}
-};
+var HB = "location.href='work.html'";
 
-const id=new URLSearchParams(location.search).get('id');
-const post=posts[id];
-if(post){document.title=post.title+' — Photography Portfolio';document.getElementById('articleBody').innerHTML=`<div class="meta">${post.date}<span class="tag">${post.tag}</span></div><h2>${post.title}</h2><img class="cover" src="${post.cover}" alt="" onclick="location.href='work.html'">${post.body}<a class="back-link" href="blog.html#${post.section}">← 返回日志</a>`}
-else{document.getElementById('articleBody').innerHTML='<h2 style="margin-top:60px">文章未找到</h2><p style="color:#888;margin-top:20px">可能链接有误，请返回日志列表。</p><a class="back-link" href="blog.html">← 返回日志</a>'}
+var posts = {};
+posts['rain-bund'] = {title:'雨后的外滩：如何利用倒影构图',date:'2024.03.15',tag:'街拍',section:'notes',cover:'https://picsum.photos/seed/blog-rain/1200/600',
+body:'<p>上海外滩，雨后的夜晚是最迷人的时刻。湿润的地面如同一面巨大的镜子，将浦江两岸的灯火尽数收入其中。</p>'
++'<p><strong>1. 低角度是王道</strong>——越贴近地面，倒影越完整。我通常会把相机放在离地面仅 10-20cm 的位置。</p>'
++'<p><strong>2. 寻找积水区域</strong>——面积大、表面平整的积水区才是最佳选择。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-rain1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-rain2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>3. 对称与打破对称</strong>——适当打破对称会更有张力。可以把地平线放在画面三分之一处。</p>'
++'<blockquote>「倒影不只是镜像，它是另一个维度的入口。」</blockquote>'
++'<p>14mm 超广角在这种场景下优势明显。拍摄参数建议 f/8-f/11 确保全景锐利。</p>'};
+
+posts['failed-portrait'] = {title:'一次失败的人像拍摄教会我的事',date:'2024.02.28',tag:'人像',section:'notes',cover:'https://picsum.photos/seed/blog-fail/1200/600',
+body:'<p>去年冬天接了一组户外人像，结果惨不忍睹。今天复盘分享踩过的坑。</p>'
++'<p><strong>错误一：没有提前踩点</strong>——到了现场才发现网红打卡点早已人满为患，下午的光线方向和想象完全不同。</p>'
++'<p><strong>错误二：过度引导</strong>——不断让模特摆姿势，成片全是僵硬的「摆拍感」。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-fail1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-fail2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>错误三：忽视情绪</strong>——太执着于构图和参数，忘了人像摄影的核心是情绪。</p>'
++'<blockquote>「最好的姿势，是被摄者自己都不知道的那个瞬间。」</blockquote>'
++'<p>之后学到：先踩点、少指挥、多聊天、抓瞬间。</p>'};
+
+posts['sunrise-sea'] = {title:'凌晨四点的海边，等待日出的那束光',date:'2024.01.20',tag:'风景',section:'notes',cover:'https://picsum.photos/seed/blog-sunrise/1200/600',
+body:'<p>凌晨三点半的闹钟，四点到达海边。天空还完全漆黑，只有远处灯塔的微弱光芒。</p>'
++'<p>日出前的「蓝色时刻」是最魔幻的——天际线慢慢泛起深蓝，海面被染成冷调的靛色。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-sun1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-sun2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p>当第一缕阳光刺破云层的那一刻，整片海面像被点燃了。金色、橙色、粉色在云层间流转。</p>'
++'<p>我用间隔连拍记录了整个日出过程，从蓝色时刻到太阳完全升起，约 40 分钟拍了 800 多张。</p>'
++'<blockquote>「风光摄影的本质就是等光。你愿意等多久，光就给你多大的惊喜。」</blockquote>'};
+
+posts['skyline'] = {title:'城市天际线：从不同视角看同一座城',date:'2023.12.10',tag:'建筑',section:'notes',cover:'https://picsum.photos/seed/blog-skyline/1200/600',
+body:'<p>同一个城市，站在不同的高度和角度，会看到完全不同的天际线。这组作品我花了三个月拍摄。</p>'
++'<p><strong>地面视角</strong>——站在外滩仰望陆家嘴，广角镜头的透视变形让建筑群更加宏伟。</p>'
++'<p><strong>楼顶视角</strong>——城市在脚下展开，近处屋顶、中景街道、远处天际线，三层分明。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-sky1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-sky2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>航拍视角</strong>——200 米以上，城市变成缩微模型，建筑构成城市肌理的像素。</p>'
++'<blockquote>「每一座城市都有无数张面孔，你站得越高，看到的越完整。」</blockquote>'};
+
+posts['yunnan'] = {title:'云南 7 天自驾：从大理到香格里拉',date:'2024.04.01',tag:'云南',section:'travel',cover:'https://picsum.photos/seed/blog-yn/1200/600',
+body:'<p>七天云南自驾，从大理出发，经丽江、虎跳峡，最终到香格里拉。</p>'
++'<p><strong>Day 1-2 大理</strong>——洱海环湖是经典路线，但更推荐清晨的喜洲古镇。</p>'
++'<p><strong>Day 3-4 虎跳峡</strong>——站在悬崖边，金沙江在脚下咆哮，峡谷两壁近千米高的绝壁。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-yn1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-yn2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>Day 5-7 香格里拉</strong>——普达措的高原湖泊、松赞林寺的金顶、纳帕海的牦牛群。</p>'
++'<blockquote>「云南不是一个目的地，而是一条路。最美的风景永远在路上。」</blockquote>'};
+
+posts['tibet'] = {title:'西藏阿里大环线：世界屋脊的光影',date:'2024.01.05',tag:'西藏',section:'travel',cover:'https://picsum.photos/seed/blog-tb/1200/600',
+body:'<p>阿里，西藏的西藏，平均海拔 4500 米以上。天空蓝得不像话，光照强度是平原的两倍。</p>'
++'<p>大环线全程约 1300 公里，用了 10 天完成。玛旁雍错、冈仁波齐、古格王朝遗址、扎达土林……</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-tb1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-tb2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p>在阿里拍照最大的挑战不是技术，而是身体。4500 米的海拔下，走路都喘。</p>'
++'<blockquote>「在阿里，你离天空最近，离尘世最远。」</blockquote>'};
+
+posts['japan'] = {title:'日本关西：京都的秋与奈良的鹿',date:'2023.11.18',tag:'日本',section:'travel',cover:'https://picsum.photos/seed/blog-jp/1200/600',
+body:'<p>十一月的关西，是属于红叶的季节。京都的寺庙在红叶映衬下美到失语。</p>'
++'<p><strong>京都推荐</strong>：东福寺（红叶名所之首）、永观堂（夜间灯光红叶）、岚山嵯峨野竹林。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-jp1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-jp2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>奈良</strong>——春日大社的石灯笼参道配上落叶，鹿群在晨雾中穿行。</p>'
++'<blockquote>「京都教会我一件事：美不需要广角来收纳，一个小景就足以让人驻足。」</blockquote>'};
+
+posts['xinjiang'] = {title:'新疆伊犁：六月的薰衣草与雪山',date:'2023.06.22',tag:'新疆',section:'travel',cover:'https://picsum.photos/seed/blog-xj/1200/600',
+body:'<p>六月的伊犁河谷，薰衣草的海洋。紫色的花海延伸到天际线，背景是终年积雪的天山。</p>'
++'<p>霍城县的薰衣草庄园是核心拍摄地，但更推荐去周边小村庄，游客少，花田更自然。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-xj1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-xj2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p>赛里木湖的蓝冰、那拉提的草原、喀拉峻的人体草原，每一处都是壁纸级的存在。</p>'
++'<blockquote>「新疆是摄影师的加油站，来一次，够拍一年。」</blockquote>'};
+
+posts['a7rv'] = {title:'Sony A7R V 实战体验：6100 万像素值不值？',date:'2024.03.20',tag:'器材',section:'tech',cover:'https://picsum.photos/seed/blog-a7r/1200/600',
+body:'<p>入手 A7R V 三个月，拍了大约 5000 张，说说真实感受。</p>'
++'<p><strong>像素密度</strong>——6100 万像素，一张 RAW 约 120MB，裁切空间巨大。拍风景后期裁一半还剩 3000 万像素。</p>'
++'<p><strong>对焦系统</strong>——AI 对焦是真正的升级。人眼、动物眼、鸟眼识别速度极快。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-a7r1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-a7r2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>视频能力</strong>——8K 是噱头，实际可用的是 4K 60p 超采。但过热问题依然存在。</p>'
++'<blockquote>「6100 万像素不是必需品，但有了它你会变得更自由。裁切自由就是构图自由。」</blockquote>'};
+
+posts['lr-color'] = {title:'Lightroom 调色思路：如何建立自己的色彩风格',date:'2024.02.14',tag:'后期',section:'tech',cover:'https://picsum.photos/seed/blog-lr/1200/600',
+body:'<p>很多新手拿到 Lightroom 第一件事就是找预设、套滤镜。但理解调色核心逻辑后，不需要任何预设。</p>'
++'<p><strong>第一步：定基调</strong>——这张照片想传达什么情绪？暖调 6000K+，冷调 4000K 以下。</p>'
++'<p><strong>第二步：压高光提阴影</strong>——高光 -50 到 -80，阴影 +30 到 +60，画面立刻有层次感。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-lr1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-lr2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>第三步：HSL 精修</strong>——橙色饱和度拉低明亮度提高，肤色通透；蓝色色相往青色偏，天空有日系感。</p>'
++'<blockquote>「调色不是加滤镜，是给照片写情绪。」</blockquote>'};
+
+posts['astro'] = {title:'星空摄影全攻略：从选址到后期堆栈',date:'2024.01.10',tag:'教程',section:'tech',cover:'https://picsum.photos/seed/blog-star/1200/600',
+body:'<p>拍星空是摄影里最浪漫也最折腾的分支。这篇从 0 讲起，覆盖全流程。</p>'
++'<p><strong>选址</strong>——远离城市光污染是第一要务。用 Light Pollution Map 查找暗空区域。</p>'
++'<p><strong>器材</strong>——14mm f/1.8 或 20mm f/1.4 是星空利器。三脚架必须稳。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-star1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-star2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>500 法则</strong>——快门速度 = 500 ÷ 焦距。14mm 最长约 35 秒。ISO 3200-6400，光圈全开。</p>'
++'<p><strong>后期堆栈</strong>——拍 20-30 张同机位，PS 中用「统计→中值堆栈」降噪。</p>'
++'<blockquote>「拍星空最大的技巧不是参数，是愿意在零下的夜里站三个小时的那份执着。」</blockquote>'};
+
+posts['street-comp'] = {title:'街拍构图法则：9 种让你的照片更有故事感的方法',date:'2023.11.05',tag:'教程',section:'tech',cover:'https://picsum.photos/seed/blog-st/1200/600',
+body:'<p>街拍最迷人的地方在于不可预知性，但好的构图能让随机变成必然。</p>'
++'<p><strong>1. 框架构图</strong>——门洞、窗户、拱桥，任何「框」都能把观者视线引向主体。</p>'
++'<p><strong>2. 前景遮挡</strong>——用行人、栏杆、树枝做前景，画面立刻多了纵深。</p>'
++'<div class="img-row"><img src="https://picsum.photos/seed/blog-st1/600/400" alt="" onclick="'+HB+'"><img src="https://picsum.photos/seed/blog-st2/600/400" alt="" onclick="'+HB+'"></div>'
++'<p><strong>3. 对角线</strong>·<strong>4. 留白</strong>·<strong>5. 重复与打破</strong>·<strong>6. 倒影</strong>·<strong>7. 光影切割</strong>·<strong>8. 仰视/俯视</strong>·<strong>9. 减法</strong>——每种构图思路都有独特的叙事力量。</p>'
++'<blockquote>「构图是选择的艺术。你选择留下什么，比选择拍什么更重要。」</blockquote>'};
+
+var id = new URLSearchParams(location.search).get('id');
+var post = posts[id];
+if (post) {
+  document.title = post.title + ' &#8212; Photography Portfolio';
+  document.getElementById('articleBody').innerHTML =
+    '<div class="meta">' + post.date + '<span class="tag">' + post.tag + '</span></div>'
+    + '<h2>' + post.title + '</h2>'
+    + '<img class="cover" src="' + post.cover + '" alt="" onclick="' + HB + '">'
+    + post.body
+    + '<a class="back-link" href="blog.html#' + post.section + '">&#8592; 返回日志</a>';
+} else {
+  document.getElementById('articleBody').innerHTML =
+    '<h2 style="margin-top:60px">文章未找到</h2>'
+    + '<p style="color:#888;margin-top:20px">可能链接有误，请返回日志列表。</p>'
+    + '<a class="back-link" href="blog.html">&#8592; 返回日志</a>';
+}
 </script>
 </body>
 </html>

@@ -99,8 +99,9 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
-      <a href="#">日志 ▾</a>
+      <a href="blog.html">日志 ▾</a>
       <div class="dd-menu">
+                <a href="blog.html">日志列表</a>
         <a href="blog.html#notes">拍摄手记</a>
         <a href="blog.html#travel">行程记录</a>
         <a href="blog.html#tech">技术分享</a>
@@ -125,14 +126,14 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   <h3>联系方式</h3>
   <div class="contact-grid">
     <a class="contact-card" href="contact.html">
-      <div class="icon">📱</div><div class="label">公众号</div><div class="value">你的公众号名称</div>
+      <div class="icon">📱</div><div class="label">公众号</div><div class="value">守着的建文帝</div>
       <img class="qr-img" src="https://via.placeholder.com/120x120/1a1a1a/555?text=二维码" alt="">
     </a>
     <a class="contact-card" href="contact.html">
-      <div class="icon">💬</div><div class="label">微信</div><div class="value">你的微信号</div>
+      <div class="icon">💬</div><div class="label">微信</div><div class="value">fish_design701</div>
     </a>
-    <a class="contact-card" href="mailto:your@email.com">
-      <div class="icon">✉️</div><div class="label">邮箱</div><div class="value">your@email.com</div>
+    <a class="contact-card" href="mailto:ils34360@hotmail.com">
+      <div class="icon">✉️</div><div class="label">邮箱</div><div class="value">ils34360@hotmail.com</div>
     </a>
     <a class="contact-card" href="tel:+8613800000000">
       <div class="icon">📞</div><div class="label">电话</div><div class="value">138-0000-0000</div>
@@ -157,7 +158,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   <div class="form-section">
     <p>填写以下信息，我会在 24 小时内回复你。</p>
     <form onsubmit="handleSubmit(event)">
-      <div class="form-group"><label>姓名</label><input type="text" placeholder="你的名字" required></div>
+      <div class="form-group"><label>姓名</label><input type="text" placeholder="失踪的建文帝" required></div>
       <div class="form-group"><label>联系方式</label><input type="text" placeholder="微信 / 手机 / 邮箱" required></div>
       <div class="form-group"><label>服务类型</label>
         <select>
@@ -170,11 +171,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   </div>
 </div>
 
-<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+<div class="footer">© 失踪的建文帝 — All Rights Reserved</div>
 
 <script>
-document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
-function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+document.addEventListener('click',function(`e){document.querySelectorAll('.nav-dropdown.open').forEach(function(`d){if(!d.contains(e.target))d.classList.remove('open')})});
+function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(function(d){d.classList.remove('open'));if(!w)el.classList.add('open')}
 function handleSubmit(e){e.preventDefault();alert('感谢你的咨询！我会尽快回复你。\n\n（这是演示页面，实际部署需对接后端服务）')}
 </script>
 </body>

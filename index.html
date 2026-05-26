@@ -119,8 +119,9 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
-      <a href="#">日志 ▾</a>
+      <a href="blog.html">日志 ▾</a>
       <div class="dd-menu">
+                <a href="blog.html">日志列表</a>
         <a href="blog.html#notes">拍摄手记</a>
         <a href="blog.html#travel">行程记录</a>
         <a href="blog.html#tech">技术分享</a>
@@ -136,14 +137,14 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   </nav>
 </header>
 
-<!-- ═══ 轮播 ═══ -->
+<!-- ── 轮播（5张） ── -->
 <div class="carousel" id="carousel">
   <div class="carousel-track" id="track">
-    <div class="carousel-slide"><img src="https://picsum.photos/seed/hero1/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>捕捉光影</h2><p>记录世界每一瞬间</p></div></div>
-    <div class="carousel-slide"><img src="https://picsum.photos/seed/hero2/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>定格时刻</h2><p>每一帧都值得珍藏</p></div></div>
-    <div class="carousel-slide"><img src="https://picsum.photos/seed/hero3/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>探索未知</h2><p>在行走中寻找灵感</p></div></div>
-    <div class="carousel-slide"><img src="https://picsum.photos/seed/hero4/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>朝花夕拾</h2><p>平凡之处亦有诗意</p></div></div>
-    <div class="carousel-slide"><img src="https://picsum.photos/seed/hero2/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>遇见美好</h2><p>世界会因你而美丽</p></div></div>
+    <div class="carousel-slide"><img src="https://picsum.photos/seed/banner1/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>光影之间</h2><p>用镜头记录世界的温度</p></div></div>
+    <div class="carousel-slide"><img src="https://picsum.photos/seed/banner2/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>城市呼吸</h2><p>钢筋水泥里的人间烟火</p></div></div>
+    <div class="carousel-slide"><img src="https://picsum.photos/seed/banner3/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>探索未知</h2><p>在行走中寻找灵感</p></div></div>
+    <div class="carousel-slide"><img src="https://picsum.photos/seed/banner4/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>看见美好</h2><p>平凡之处亦有诗意</p></div></div>
+    <div class="carousel-slide"><img src="https://picsum.photos/seed/banner5/1920/1080" alt=""><div class="carousel-overlay"></div><div class="carousel-caption"><h2>瞬间永恒</h2><p>每一帧都值得被铭记</p></div></div>
   </div>
   <button class="carousel-arrow left" onclick="moveSlide(-1)">&#10094;</button>
   <button class="carousel-arrow right" onclick="moveSlide(1)">&#10095;</button>
@@ -162,31 +163,32 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   <button class="filter-btn" data-filter="night">夜景</button>
 </div>
 
-<!-- ── 瀑布流 ── -->
+<!-- ── 瀑布流（30张/分类） ── -->
 <section class="gallery-section">
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
-<!-- ═══ 联系 ═══ -->
+<!-- ── 联系 ── -->
 <section class="contact-section" id="contact">
   <div class="section-title" style="padding-top:0">联系我</div>
   <div class="contact-grid">
     <a class="contact-card" href="contact.html">
-      <div class="icon">📱</div><div class="label">公众号</div><div class="value">失踪的建文帝</div>
+      <div class="icon">&#128241;</div><div class="label">公众号</div><div class="value">守着的建文帝</div>
+      <img class="qr-img" src="https://via.placeholder.com/120x120/1a1a1a/555?text=QR" alt="">
     </a>
     <a class="contact-card" href="contact.html">
-      <div class="icon">💬</div><div class="label">微信</div><div class="value">fish_design701</div>
+      <div class="icon">&#128172;</div><div class="label">微信</div><div class="value">fish_design701</div>
     </a>
-    <a class="contact-card" href="mailto:your@email.com">
-      <div class="icon">✉️</div><div class="label">邮箱</div><div class="value">ils34360@hotmail.com</div>
+    <a class="contact-card" href="mailto:ils34360@hotmail.com">
+      <div class="icon">&#9993;</div><div class="label">邮箱</div><div class="value">ils34360@hotmail.com</div>
     </a>
     <a class="contact-card" href="contact.html#social">
-      <div class="icon">🌐</div><div class="label">社交媒体</div><div class="value">查看全部 →</div>
+      <div class="icon">&#127758;</div><div class="label">社交媒体</div><div class="value">查看全部 &rarr;</div>
     </a>
   </div>
 </section>
 
-<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+<div class="footer">&#169; 失踪的建文帝 &#8212; All Rights Reserved</div>
 
 <script>
 /* ── 导航下拉 ── */
@@ -274,10 +276,14 @@ filterBtns.forEach(function(btn) {
   });
 });
 
-/* ── 瀑布流生成 ── */
+/* ── 瀑布流（30张/分类 = 150张） ── */
 var cats = ['landscape','portrait','street','architecture','night'];
-var catNames = {landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
-var sizes = [[800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],[680,500],[420,600],[780,600],[520,600],[650,550]];
+var catNames = {landscape:'风景', portrait:'人像', street:'街拍', architecture:'建筑', night:'夜景'};
+var sizes = [
+  [800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
+  [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],
+  [900,600],[540,640],[760,580],[500,560],[820,600],[600,620],[680,560],[440,600],[780,500],[560,640]
+];
 var grid = document.getElementById('galleryGrid');
 
 cats.forEach(function(cat) {

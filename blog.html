@@ -81,7 +81,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
-      <a href="#" style="color:#fff">日志 ▾</a>
+      <a href="blog.html">日志 ▾</a>
       <div class="dd-menu">
         <a href="#notes">拍摄手记</a>
         <a href="#travel">行程记录</a>
@@ -133,11 +133,11 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
   </ul>
 </div>
 
-<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
+<div class="footer">© 失踪的建文帝 — All Rights Reserved</div>
 
 <script>
-document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
-function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
+document.addEventListener('click',function(`e){document.querySelectorAll('.nav-dropdown.open').forEach(function(`d){if(!d.contains(e.target))d.classList.remove('open')})});
+function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(function(d){d.classList.remove('open'));if(!w)el.classList.add('open')}
 </script>
 </body>
 </html>
