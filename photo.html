@@ -1,193 +1,137 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>照片 — Photography Portfolio</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
-    .header {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
-      background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .header h1 { font-size: 1.2rem; font-weight: 300; letter-spacing: 4px; }
-    .header h1 a { color: #fff; text-decoration: none; }
-    .header nav { display: flex; align-items: center; }
-    .header nav > a { color: #ccc; text-decoration: none; margin-left: 30px; font-size: 0.9rem; letter-spacing: 1px; }
-    .header nav > a:hover { color: #fff; }
-    .nav-dropdown { position: relative; margin-left: 30px; }
-    .nav-dropdown > a { color: #ccc; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; }
-    .nav-dropdown > a:hover { color: #fff; }
-    .nav-dropdown-menu {
-      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      background: rgba(20,20,20,0.95); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 8px 0; min-width: 140px; margin-top: 12px;
-      backdrop-filter: blur(20px); z-index: 200;
-    }
-    .nav-dropdown-menu::before {
-      content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-      border-left: 6px solid transparent; border-right: 6px solid transparent;
-      border-bottom: 6px solid rgba(255,255,255,0.1);
-    }
-    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-    .nav-dropdown-menu a {
-      display: block; color: #aaa; text-decoration: none; padding: 10px 24px;
-      font-size: 0.85rem; letter-spacing: 1px; transition: all 0.2s; white-space: nowrap;
-    }
-    .nav-dropdown-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>照片 — Photography Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+.header{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);border-bottom:1px solid rgba(255,255,255,.06)}
+.header h1{font-size:1.2rem;font-weight:300;letter-spacing:4px}
+.header h1 a{color:#fff;text-decoration:none}
+.header nav{display:flex;align-items:center}
+.header nav>a{color:#ccc;text-decoration:none;margin-left:28px;font-size:.9rem;letter-spacing:1px}
+.header nav>a:hover{color:#fff}
+.nav-dropdown{position:relative;margin-left:28px}
+.nav-dropdown>a{color:#ccc;text-decoration:none;font-size:.9rem;letter-spacing:1px;cursor:pointer}
+.nav-dropdown>a:hover{color:#fff}
+.dd-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,20,20,.97);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 0;min-width:140px;backdrop-filter:blur(20px);z-index:200}
+.dd-menu::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(255,255,255,.1)}
+.nav-dropdown:hover .dd-menu,.nav-dropdown.open .dd-menu{display:block}
+.dd-menu a{display:block;color:#aaa;text-decoration:none;padding:10px 24px;font-size:.85rem;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.dd-menu a:hover{color:#fff;background:rgba(255,255,255,.08)}
 
-    .photo-container {
-      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 100px 40px 40px;
-    }
-    .photo-wrapper { max-width: 1000px; width: 100%; }
-    .photo-wrapper img {
-      width: 100%; border-radius: 6px; display: block;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .photo-info { text-align: center; margin-top: 30px; }
-    .photo-info h2 { font-weight: 300; font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 8px; }
-    .photo-info p { color: #777; font-size: 0.85rem; }
-    .photo-nav {
-      display: flex; justify-content: center; gap: 20px; padding: 20px 40px 50px;
-    }
-    .photo-nav a {
-      color: #888; text-decoration: none; font-size: 0.85rem; letter-spacing: 1px;
-      border: 1px solid rgba(255,255,255,0.1); padding: 10px 24px; border-radius: 24px;
-      transition: all 0.3s;
-    }
-    .photo-nav a:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
-    .photo-nav a.disabled { opacity: 0.2; pointer-events: none; }
+.photo-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px 30px}
+.photo-wrap img{max-width:1000px;width:100%;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:pointer;transition:transform .3s}
+.photo-wrap img:hover{transform:scale(1.01)}
+.photo-info{text-align:center;margin-top:24px}
+.photo-info h2{font-weight:300;font-size:1.3rem;letter-spacing:2px;margin-bottom:6px}
+.photo-info p{color:#777;font-size:.85rem}
+.photo-nav{display:flex;justify-content:center;gap:16px;padding:16px 40px 50px}
+.photo-nav a{color:#888;text-decoration:none;font-size:.85rem;letter-spacing:1px;border:1px solid rgba(255,255,255,.1);padding:10px 22px;border-radius:24px;transition:all .3s}
+.photo-nav a:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.05)}
+.photo-nav a.disabled{opacity:.2;pointer-events:none}
 
-    .footer-bottom {
-      padding: 30px 40px; text-align: center; color: #444; font-size: 0.75rem;
-      letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.05);
-    }
+.footer{padding:30px 40px;text-align:center;color:#444;font-size:.75rem;letter-spacing:1px;border-top:1px solid rgba(255,255,255,.05)}
 
-    @media (max-width: 768px) {
-      .photo-container { padding: 90px 16px 20px; }
-      .photo-nav { padding: 16px 20px 40px; gap: 12px; }
-      .header { padding: 16px 20px; }
-      .header nav > a, .nav-dropdown { margin-left: 16px; }
-      .header nav > a, .nav-dropdown > a { font-size: 0.8rem; }
-    }
-  </style>
+@media(max-width:768px){
+  .photo-wrap{padding:90px 16px 20px}
+  .header{padding:16px 20px}
+  .header nav>a,.nav-dropdown{margin-left:14px}
+  .header nav>a,.nav-dropdown>a{font-size:.78rem}
+}
+</style>
 </head>
 <body>
 
-  <header class="header">
-    <h1><a href="index.html">Gallery</a></h1>
-    <nav>
-      <a href="index.html">首页</a>
-      <div class="nav-dropdown">
-        <a href="#">作品 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="gallery.html?category=landscape">风景</a>
-          <a href="gallery.html?category=portrait">人像</a>
-          <a href="gallery.html?category=street">街拍</a>
-          <a href="gallery.html?category=architecture">建筑</a>
-          <a href="gallery.html?category=night">夜景</a>
-        </div>
+<header class="header">
+  <h1><a href="index.html">Gallery</a></h1>
+  <nav>
+    <a href="index.html">首页</a>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">作品 ▾</a>
+      <div class="dd-menu">
+        <a href="gallery.html?category=landscape">风景</a>
+        <a href="gallery.html?category=portrait">人像</a>
+        <a href="gallery.html?category=street">街拍</a>
+        <a href="gallery.html?category=architecture">建筑</a>
+        <a href="gallery.html?category=night">夜景</a>
       </div>
-      <div class="nav-dropdown">
-        <a href="#">关于 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="about.html#bio">个人简介</a>
-          <a href="about.html#philosophy">摄影理念</a>
-          <a href="about.html#gear">设备器材</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="#">服务 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="services.html#portrait">约拍写真</a>
-          <a href="services.html#commercial">商业拍摄</a>
-          <a href="services.html#retouching">后期修图</a>
-          <a href="services.html#workshop">摄影教学</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="#">日志 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="blog.html#notes">拍摄手记</a>
-          <a href="blog.html#travel">行程记录</a>
-          <a href="blog.html#tech">技术分享</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="#">联系 ▾</a>
-        <div class="nav-dropdown-menu">
-          <a href="contact.html#inquiry">合作咨询</a>
-          <a href="contact.html#social">社交媒体</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <div class="photo-container">
-    <div class="photo-wrapper">
-      <img id="photoImg" src="" alt="">
     </div>
-  </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">关于 ▾</a>
+      <div class="dd-menu">
+        <a href="about.html#bio">个人简介</a>
+        <a href="about.html#philosophy">摄影理念</a>
+        <a href="about.html#gear">设备器材</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">服务 ▾</a>
+      <div class="dd-menu">
+        <a href="services.html#portrait">约拍写真</a>
+        <a href="services.html#commercial">商业拍摄</a>
+        <a href="services.html#retouching">后期修图</a>
+        <a href="services.html#workshop">摄影教学</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">日志 ▾</a>
+      <div class="dd-menu">
+        <a href="blog.html#notes">拍摄手记</a>
+        <a href="blog.html#travel">行程记录</a>
+        <a href="blog.html#tech">技术分享</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">联系 ▾</a>
+      <div class="dd-menu">
+        <a href="contact.html#inquiry">合作咨询</a>
+        <a href="contact.html#social">社交媒体</a>
+      </div>
+    </div>
+  </nav>
+</header>
 
-  <div class="photo-info">
-    <h2 id="photoTitle">照片标题</h2>
-    <p id="photoMeta"></p>
-  </div>
+<div class="photo-wrap">
+  <img id="photoImg" src="" alt="" onclick="location.href='work.html'">
+</div>
+<div class="photo-info">
+  <h2 id="photoTitle">照片</h2>
+  <p id="photoMeta"></p>
+</div>
+<div class="photo-nav">
+  <a id="prevBtn" href="#">← 上一张</a>
+  <a id="galleryBtn" href="#">返回合集</a>
+  <a id="nextBtn" href="#">下一张 →</a>
+</div>
 
-  <div class="photo-nav">
-    <a id="prevBtn" href="#">← 上一张</a>
-    <a id="galleryBtn" href="#">返回合集</a>
-    <a id="nextBtn" href="#">下一张 →</a>
-  </div>
+<div class="footer">© 2024 Photography Portfolio — All Rights Reserved</div>
 
-  <div class="footer-bottom">© 2024 Photography Portfolio — All Rights Reserved</div>
+<script>
+document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})});
+function toggleDD(el){const w=el.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(d=>d.classList.remove('open'));if(!w)el.classList.add('open')}
 
-  <script>
-    const categoryNames = {
-      landscape: '风景', portrait: '人像', street: '街拍',
-      architecture: '建筑', night: '夜景'
-    };
-    const seeds = { landscape: 'land', portrait: 'port', street: 'str', architecture: 'arch', night: 'night' };
-    const sizes = [[800,600],[450,600],[700,600],[500,600],[900,600],[600,600],[750,600],[480,600],[850,600],[550,600],[680,600],[420,600],[780,600],[520,600],[650,600]];
-    const TOTAL = 15;
-
-    const params = new URLSearchParams(location.search);
-    const cat = params.get('category');
-    const idx = parseInt(params.get('index')) || 0;
-
-    const name = categoryNames[cat] || '';
-    const seed = seeds[cat] || 'photo';
-    document.title = name + ' ' + (idx + 1) + ' — Photography Portfolio';
-
-    const [w, h] = sizes[idx] || [600, 600];
-    document.getElementById('photoImg').src = `https://picsum.photos/seed/${seed}${idx + 1}/${w}/${h}`;
-    document.getElementById('photoTitle').textContent = name + ' ' + (idx + 1) + ' · 待替换';
-    document.getElementById('photoMeta').textContent = '第 ' + (idx + 1) + ' / ' + TOTAL + ' 张';
-
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const galleryBtn = document.getElementById('galleryBtn');
-
-    galleryBtn.href = 'gallery.html?category=' + cat;
-
-    if (idx <= 0) {
-      prevBtn.classList.add('disabled');
-    } else {
-      prevBtn.href = 'photo.html?category=' + cat + '&index=' + (idx - 1);
-    }
-    if (idx >= TOTAL - 1) {
-      nextBtn.classList.add('disabled');
-    } else {
-      nextBtn.href = 'photo.html?category=' + cat + '&index=' + (idx + 1);
-    }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft' && idx > 0) location.href = 'photo.html?category=' + cat + '&index=' + (idx - 1);
-      if (e.key === 'ArrowRight' && idx < TOTAL - 1) location.href = 'photo.html?category=' + cat + '&index=' + (idx + 1);
-    });
-  </script>
+const catNames={landscape:'风景',portrait:'人像',street:'街拍',architecture:'建筑',night:'夜景'};
+const seeds={landscape:'land',portrait:'port',street:'str',architecture:'arch',night:'night'};
+const sizes=[[800,600],[450,600],[700,600],[500,600],[900,600],[600,600],[750,600],[480,600],[850,600],[550,600],[680,600],[420,600],[780,600],[520,600],[650,600]];
+const TOTAL=15;
+const params=new URLSearchParams(location.search);
+const cat=params.get('category');
+const idx=parseInt(params.get('index'))||0;
+const name=catNames[cat]||'';
+const seed=seeds[cat]||'photo';
+document.title=name+' '+(idx+1)+' — Photography Portfolio';
+const[w,h]=sizes[idx]||[600,600];
+document.getElementById('photoImg').src='https://picsum.photos/seed/'+seed+(idx+1)+'/'+w+'/'+h;
+document.getElementById('photoTitle').textContent=name+' '+(idx+1)+' · 点击查看更多';
+document.getElementById('photoMeta').textContent='第 '+(idx+1)+' / '+TOTAL+' 张';
+document.getElementById('galleryBtn').href='gallery.html?category='+cat;
+const pb=document.getElementById('prevBtn'),nb=document.getElementById('nextBtn');
+if(idx<=0)pb.classList.add('disabled');else pb.href='photo.html?category='+cat+'&index='+(idx-1);
+if(idx>=TOTAL-1)nb.classList.add('disabled');else nb.href='photo.html?category='+cat+'&index='+(idx+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'&&idx>0)location.href='photo.html?category='+cat+'&index='+(idx-1);if(e.key==='ArrowRight'&&idx<TOTAL-1)location.href='photo.html?category='+cat+'&index='+(idx+1)});
+</script>
 </body>
 </html>
