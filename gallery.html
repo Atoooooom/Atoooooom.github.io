@@ -123,7 +123,7 @@ document.title=(catNames[cat]||'合集')+' — Photography Portfolio';
 const seed=seeds[cat]||'photo';
 const grid=document.getElementById('grid');
 if(!cat||!seeds[cat]){grid.innerHTML='<div class="empty">未找到该分类，<a href="index.html" style="color:#aaa">返回首页</a></div>'}
-else{sizes.forEach(([w,h],i)=>{const d=document.createElement('div');d.className='gallery-item';d.innerHTML='<img src="https://picsum.photos/seed/'+seed+(i+1)+'/'+w+'/'+h+'" alt="'+catNames[cat]+' '+(i+1)+'"><div class="caption"><span>'+catNames[cat]+' '+(i+1)+'</span></div>';d.onclick=()=>window.open('https://huaban.com/discovery','_blank');grid.appendChild(d)})}
+else{sizes.forEach(([w,h],i)=>{const d=document.createElement('div');d.className='gallery-item';d.innerHTML='<img src="https://picsum.photos/seed/'+seed+(i+1)+'/'+w+'/'+h+'" alt="'+catNames[cat]+' '+(i+1)+'"><div class="caption"><span>'+catNames[cat]+' '+(i+1)+'</span></div>';d.onclick=()=>location.href='work.html';grid.appendChild(d)})}
 </script>
 </body>
 </html>
