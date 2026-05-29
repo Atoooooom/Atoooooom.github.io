@@ -183,7 +183,7 @@ function toggleDD(el) {
 
 var TOTAL = 30;
 var catNames = {jiepai:'街拍', chezhan:'车展', mingxing:'明星', mojing:'魔镜', xiuren:'秀人', yunwei:'孕味', yujia:'瑜伽'};
-var seeds    = {jiepai:'land', chezhan:'port', mingxing:'star', mojing:'arch', xiuren:'xiuren', yujia:'yoga'};
+var seeds    = {jiepai:'land', chezhan:'port', mingxing:'star', mojing:'arch', xiuren:'xiuren', yunwei:'maternity', yujia:'yoga'};
 var sizes    = [
   [1200,800],[900,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
   [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],
@@ -195,7 +195,8 @@ var tagMap = {
   mingxing:       ['明星','红毯','写真','访谈','剧照','时尚'],
   mojing: ['魔镜','空间','线条','几何','结构','设计'],
   xiuren:        ['秀人','城市','长曝光','星空','霓虹','暗调'],
-    yujia:         ['瑜伽','体式','冥想','柔韧','平衡','呼吸']
+    yujia:         ['瑜伽','体式','冥想','柔韧','平衡','呼吸'],
+    yunwei:        ['孕味','孕育','柔美','生命','幸福','期待']
 };
 var descs = {
   jiepai:    '山川湖海，晨昏四季。每一束光都有它的故事，每一片云都在诉说时间。',
@@ -203,7 +204,8 @@ var descs = {
   mingxing:       '镜头捕捉光影之间，明星闪耀的每一个瞬间。',
   mojing: '魔镜的线条是凝固的音乐，光影是流动的节拍。在钢筋水泥中寻找诗意。',
   xiuren:        '当城市入睡，光影才真正醒来。霓虹、星空、车流——夜是另一番天地。',
-    yujia:         '身心合一，呼吸之间。瑜伽是静与动的对话，是力量与柔韧的平衡。'
+    yujia:         '身心合一，呼吸之间。瑜伽是静与动的对话，是力量与柔韧的平衡。',
+    yunwei:        '孕育新生命是最美的姿态。温柔的力量，幸福的期待，每一刻都值得被铭记。'
 };
 
 var params = new URLSearchParams(location.search);
