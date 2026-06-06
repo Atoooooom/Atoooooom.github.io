@@ -1,12 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>合集 — Photography Portfolio</title>
+<title>合集 — 摄影作品集</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh}
+
+/* ── Header (same as index) ── */
 .header{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.95);border-bottom:1px solid rgba(255,255,255,0.06)}
 .header h1{font-size:1.2rem;font-weight:300;letter-spacing:4px}
 .header h1 a{color:#fff;text-decoration:none}
@@ -22,25 +24,34 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 .dd-menu a{display:block;color:#aaa;text-decoration:none;padding:10px 24px;font-size:.85rem;letter-spacing:1px;transition:all .2s;white-space:nowrap}
 .dd-menu a:hover{color:#fff;background:rgba(255,255,255,0.08)}
 
+/* ── Page Title ── */
 .page-title{text-align:center;padding:140px 40px 20px;font-weight:200;font-size:2.2rem;letter-spacing:3px}
-.back-link{display:inline-block;margin:0 auto 40px;color:#666;text-decoration:none;font-size:.85rem;letter-spacing:1px;transition:color .3s}
+.back-link{display:inline-block;margin:0 auto 40px;color:#666;text-decoration:none;font-size:.85rem;letter-spacing:1px;transition:color .3s;cursor:pointer}
 .back-link:hover{color:#aaa}
-.empty{text-align:center;color:#555;padding:80px 20px;font-size:1rem}
 
-.gallery-grid{column-count:3;column-gap:14px;max-width:1400px;margin:0 auto;padding:0 40px 80px}
-.gallery-item{break-inside:avoid;margin-bottom:14px;position:relative;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s}
-.gallery-item:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
-.gallery-item img{width:100%;display:block;transition:transform .5s}
-.gallery-item:hover img{transform:scale(1.05)}
-.gallery-item .caption{position:absolute;bottom:0;left:0;right:0;padding:60px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,0.8));font-size:.82rem;color:#ddd;letter-spacing:.5px;opacity:0;transition:opacity .3s}
-.gallery-item:hover .caption{opacity:1}
+/* ── Filter Bar ── */
+.filter-bar{display:flex;justify-content:center;gap:12px;padding:0 40px 40px;flex-wrap:wrap}
+.filter-btn{padding:8px 20px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;background:transparent;color:#888;font-size:.82rem;letter-spacing:1px;cursor:pointer;transition:all .3s}
+.filter-btn.active,.filter-btn:hover{color:#fff;border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.05)}
+
+/* ── Package Grid ── */
+.pkg-grid{column-count:3;column-gap:14px;max-width:1400px;margin:0 auto;padding:0 40px 80px}
+.pkg-item{break-inside:avoid;margin-bottom:14px;position:relative;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;background:#111}
+.pkg-item:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.pkg-item img{width:100%;display:block;transition:transform .5s}
+.pkg-item:hover img{transform:scale(1.05)}
+.pkg-item .pkg-info{position:absolute;bottom:0;left:0;right:0;padding:60px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,0.85));font-size:.82rem;color:#ddd;letter-spacing:.5px}
+.pkg-item .pkg-name{font-weight:500;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkg-item .pkg-count{color:rgba(255,255,255,0.5);font-size:.75rem}
+
+.empty{text-align:center;color:#555;padding:80px 20px;font-size:1rem}
 
 .footer{padding:30px 40px;text-align:center;color:#444;font-size:.75rem;letter-spacing:1px;border-top:1px solid rgba(255,255,255,0.05);margin-top:60px}
 
 @media(max-width:768px){
   .header{padding:16px 20px}
   .page-title{padding:120px 20px 16px;font-size:1.6rem}
-  .gallery-grid{padding:0 20px 60px;grid-template-columns:repeat(2,1fr);gap:10px}
+  .pkg-grid{padding:0 20px 60px;column-count:2}
   .header nav>a,.nav-dropdown{margin-left:14px}
   .header nav>a,.nav-dropdown>a{font-size:.78rem}
 }
@@ -57,11 +68,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
       <div class="dd-menu">
         <a href="gallery.html?category=jiepai">街拍</a>
         <a href="gallery.html?category=chezhan">车展</a>
-        <a href="gallery.html?category=mingxing">明星</a>
         <a href="gallery.html?category=mojing">魔镜</a>
-        <a href="gallery.html?category=xiuren">秀人</a>
-        <a href="gallery.html?category=yunwei">孕味</a>
-        <a href="gallery.html?category=yujia">瑜伽</a>
+        <a href="gallery.html?category=mingxing">明星</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -75,19 +83,16 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="#">服务 ▾</a>
       <div class="dd-menu">
-        <a href="services.html#chezhan">约拍写真</a>
+        <a href="services.html#jiepai">约拍写真</a>
         <a href="services.html#commercial">商业拍摄</a>
         <a href="services.html#retouching">后期修图</a>
-        <a href="services.html#workshop">摄影教学</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
       <a href="blog.html">日志 ▾</a>
       <div class="dd-menu">
-                <a href="blog.html">日志列表</a>
+        <a href="blog.html">日志列表</a>
         <a href="blog.html#notes">拍摄手记</a>
-        <a href="blog.html#travel">行程记录</a>
-        <a href="blog.html#tech">技术分享</a>
       </div>
     </div>
     <div class="nav-dropdown" onclick="toggleDD(this)">
@@ -101,11 +106,12 @@ body{font-family:'Segoe UI',sans-serif;background:#0a0a0a;color:#fff}
 </header>
 
 <div class="page-title" id="catTitle">合集</div>
-<div style="text-align:center"><a class="back-link" href="index.html">&#8592; 返回首页</a></div>
+<div style="text-align:center"><a class="back-link" href="index.html">&larr; 返回首页</a></div>
 
-<div class="gallery-grid" id="grid"></div>
+<div class="filter-bar" id="filterBar"></div>
+<div class="pkg-grid" id="grid"></div>
 
-<div class="footer">&#169; 失踪的建文帝 &#8212; All Rights Reserved</div>
+<div class="footer">&copy; 失踪的建文帝 &mdash; All Rights Reserved</div>
 
 <script>
 document.addEventListener('click', function(e) {
@@ -119,31 +125,64 @@ function toggleDD(el) {
   if (!w) el.classList.add('open');
 }
 
-var catNames = {jiepai:'街拍', chezhan:'车展', mingxing:'明星', mojing:'魔镜', xiuren:'秀人', yunwei:'孕味', yujia:'瑜伽'};
-var seeds    = {jiepai:'land', chezhan:'port', mingxing:'star', mojing:'arch', xiuren:'xiuren', yunwei:'port', yujia:'yoga'};
-var sizes = [
-  [800,600],[450,600],[700,500],[500,600],[900,550],[600,650],[750,600],[480,600],[850,600],[550,600],
-  [680,500],[420,600],[780,600],[520,600],[650,550],[720,640],[580,600],[800,500],[460,620],[700,560],
-  [900,600],[540,640],[760,580],[500,560],[820,600],[600,620],[680,560],[440,600],[780,500],[560,640]
-];
-var TOTAL = 30;
-var cat = new URLSearchParams(location.search).get('category');
-var title = catNames[cat] || '合集';
-document.getElementById('catTitle').textContent = title;
-document.title = title + '（共 ' + TOTAL + ' 张）— Photography Portfolio';
+var CAT_NAMES = {jiepai:'街拍', chezhan:'车展', mojing:'魔镜', mingxing:'明星'};
+var MANIFEST_URL = 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/manifest.json';
+var cat = new URLSearchParams(location.search).get('category') || 'jiepai';
+var manifest = null;
 
-var seed = seeds[cat] || 'photo';
-var grid = document.getElementById('grid');
+fetch(MANIFEST_URL).then(function(r) { return r.json(); }).then(function(m) {
+  manifest = m;
+  buildFilterBar();
+  buildGrid();
+}).catch(function() {
+  document.getElementById('grid').innerHTML = '<div class="empty">加载失败，请刷新重试</div>';
+});
 
-if (!cat || !seeds[cat]) {
-  grid.innerHTML = '<div class="empty">未找到该分类，<a href="index.html" style="color:#aaa">返回首页</a></div>';
-} else {
-  sizes.forEach(function(s, i) {
-    var d = document.createElement('div');
-    d.className = 'gallery-item';
-    d.innerHTML = '<img src="https://picsum.photos/seed/' + seed + i + '/' + s[0] + '/' + s[1] + '" alt="' + catNames[cat] + ' ' + (i+1) + '"><div class="caption"><span>' + catNames[cat] + ' ' + (i+1) + '</span></div>';
-    d.onclick = function() { location.href = 'work.html?category=' + cat + '&index=' + i; };
-    grid.appendChild(d);
+function buildFilterBar() {
+  var bar = document.getElementById('filterBar');
+  var cats = Object.keys(manifest);
+  bar.innerHTML = cats.map(function(c) {
+    var active = c === cat ? ' active' : '';
+    return '<button class="filter-btn' + active + '" data-cat="' + c + '">' + (CAT_NAMES[c]||c) + '</button>';
+  }).join('');
+  bar.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.onclick = function() {
+      cat = btn.dataset.cat;
+      btn.parentElement.querySelectorAll('.filter-btn').forEach(function(b) { b.className = 'filter-btn'; });
+      btn.className = 'filter-btn active';
+      buildGrid();
+      history.replaceState(null, null, '?category=' + cat);
+    };
+  });
+}
+
+function buildGrid() {
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  var title = CAT_NAMES[cat] || cat || '合集';
+  document.getElementById('catTitle').textContent = title;
+  document.title = title + ' — 摄影作品集';
+
+  if (!manifest[cat]) {
+    grid.innerHTML = '<div class="empty">该分类暂无内容</div>';
+    return;
+  }
+  var pkgs = Object.keys(manifest[cat]);
+  if (pkgs.length === 0) {
+    grid.innerHTML = '<div class="empty">该分类暂无内容</div>';
+    return;
+  }
+  pkgs.forEach(function(pkg) {
+    var imgs = manifest[cat][pkg];
+    var cover = imgs && imgs.length > 0 ? imgs[0] : null;
+    var div = document.createElement('div');
+    div.className = 'pkg-item';
+    var imgUrl = cover
+      ? 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/images/' + cat + '/' + encodeURIComponent(pkg) + '/' + encodeURIComponent(cover)
+      : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="%23333"/></svg>';
+    div.innerHTML = '<img src="' + imgUrl + '" alt="" loading="lazy"><div class="pkg-info"><div class="pkg-name">' + pkg + '</div><div class="pkg-count">' + (imgs?imgs.length:0) + ' 张图片</div></div>';
+    div.onclick = function() { location.href = 'package.html?category=' + cat + '&package=' + encodeURIComponent(pkg); };
+    grid.appendChild(div);
   });
 }
 </script>
