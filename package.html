@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>图包 — 摄影作品集</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh}
+
+/* ── Header ── */
+.header{position:fixed;top:0;width:100%;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.95);border-bottom:1px solid rgba(255,255,255,0.06)}
+.header h1{font-size:1.2rem;font-weight:300;letter-spacing:4px}
+.header h1 a{color:#fff;text-decoration:none}
+.header nav{display:flex;align-items:center}
+.header nav>a{color:#ccc;text-decoration:none;margin-left:28px;font-size:.9rem;letter-spacing:1px}
+.header nav>a:hover{color:#fff}
+.nav-dropdown{position:relative;margin-left:28px}
+.nav-dropdown>a{color:#ccc;text-decoration:none;font-size:.9rem;letter-spacing:1px;cursor:pointer}
+.nav-dropdown>a:hover{color:#fff}
+.dd-menu{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(20,20,20,0.97);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 0;min-width:140px;backdrop-filter:blur(20px);z-index:200}
+.dd-menu::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid rgba(255,255,255,0.1)}
+.nav-dropdown:hover .dd-menu,.nav-dropdown.open .dd-menu{display:block}
+.dd-menu a{display:block;color:#aaa;text-decoration:none;padding:10px 24px;font-size:.85rem;letter-spacing:1px;transition:all .2s;white-space:nowrap}
+.dd-menu a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+
+/* ── Package Header ── */
+.pkg-header{padding:140px 40px 20px;text-align:center}
+.pkg-name{font-weight:200;font-size:2rem;letter-spacing:2px;margin-bottom:8px}
+.pkg-count{color:rgba(255,255,255,0.5);font-size:.9rem;letter-spacing:1px}
+.back-row{text-align:center;margin-bottom:30px}
+.back-row a{color:#666;text-decoration:none;font-size:.85rem;letter-spacing:1px;transition:color .3s}
+.back-row a:hover{color:#aaa}
+
+/* ── Image Grid ── */
+.img-grid{column-count:3;column-gap:12px;max-width:1400px;margin:0 auto;padding:0 40px 80px}
+.img-grid img{width:100%;display:block;margin-bottom:12px;border-radius:6px;cursor:pointer;transition:transform .3s,box-shadow .3s;break-inside:avoid}
+.img-grid img:hover{transform:scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+
+/* ── Prev/Next Nav ── */
+.pkg-nav{display:flex;justify-content:space-between;padding:0 40px 60px;max-width:1400px;margin:0 auto}
+.pkg-nav a{color:#888;text-decoration:none;font-size:.9rem;letter-spacing:1px;padding:10px 20px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;transition:all .3s}
+.pkg-nav a:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+
+/* ── Lightbox ── */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;cursor:pointer}
+.lightbox.active{display:flex}
+.lightbox img{max-width:95vw;max-height:95vh;object-fit:contain}
+.lightbox .lb-close{position:absolute;top:30px;right:40px;color:#fff;font-size:2rem;cursor:pointer;z-index:10}
+.lightbox .lb-prev,.lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:2rem;cursor:pointer;padding:20px;user-select:none;z-index:10}
+.lightbox .lb-prev{left:10px}
+.lightbox .lb-next{right:10px}
+
+/* ── Footer ── */
+.footer{padding:30px 40px;text-align:center;color:#444;font-size:.75rem;letter-spacing:1px;border-top:1px solid rgba(255,255,255,0.05)}
+
+@media(max-width:768px){
+  .header{padding:16px 20px}
+  .pkg-header{padding:120px 20px 16px}
+  .pkg-name{font-size:1.5rem}
+  .img-grid{padding:0 20px 60px;column-count:2}
+  .pkg-nav{padding:0 20px 40px;flex-direction:column;gap:10px;align-items:center}
+  .header nav>a,.nav-dropdown{margin-left:14px}
+  .header nav>a,.nav-dropdown>a{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1><a href="index.html">Gallery</a></h1>
+  <nav>
+    <a href="index.html">首页</a>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">作品 ▾</a>
+      <div class="dd-menu">
+        <a href="gallery.html?category=jiepai">街拍</a>
+        <a href="gallery.html?category=chezhan">车展</a>
+        <a href="gallery.html?category=mojing">魔镜</a>
+        <a href="gallery.html?category=mingxing">明星</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">关于 ▾</a>
+      <div class="dd-menu">
+        <a href="about.html#bio">个人简介</a>
+        <a href="about.html#philosophy">摄影理念</a>
+        <a href="about.html#gear">设备器材</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">服务 ▾</a>
+      <div class="dd-menu">
+        <a href="services.html#jiepai">约拍写真</a>
+        <a href="services.html#commercial">商业拍摄</a>
+        <a href="services.html#retouching">后期修图</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="blog.html">日志 ▾</a>
+      <div class="dd-menu">
+        <a href="blog.html">日志列表</a>
+        <a href="blog.html#notes">拍摄手记</a>
+      </div>
+    </div>
+    <div class="nav-dropdown" onclick="toggleDD(this)">
+      <a href="#">联系 ▾</a>
+      <div class="dd-menu">
+        <a href="contact.html#inquiry">合作咨询</a>
+        <a href="contact.html#social">社交媒体</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="pkg-header">
+  <div class="pkg-name" id="pkgName">加载中...</div>
+  <div class="pkg-count" id="pkgCount"></div>
+</div>
+<div class="back-row"><a href="javascript:history.back()">&larr; 返回合集</a></div>
+
+<div class="img-grid" id="grid"></div>
+
+<div class="pkg-nav">
+  <a href="#" id="prevLink">&#8592; 上一个图包</a>
+  <a href="gallery.html" id="catLink">查看全部分类</a>
+  <a href="#" id="nextLink">下一个图包 &#8594;</a>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lb-close" onclick="closeLb()">&times;</span>
+  <span class="lb-prev" onclick="lbNav(-1)">&#10094;</span>
+  <img id="lbImg" src="" alt="">
+  <span class="lb-next" onclick="lbNav(1)">&#10095;</span>
+</div>
+
+<div class="footer">&copy; 失踪的建文帝 &mdash; All Rights Reserved</div>
+
+<script>
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
+    if (!d.contains(e.target)) d.classList.remove('open');
+  });
+});
+function toggleDD(el) {
+  var w = el.classList.contains('open');
+  document.querySelectorAll('.nav-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+  if (!w) el.classList.add('open');
+}
+
+var MANIFEST_URL = 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/manifest.json';
+var params = new URLSearchParams(location.search);
+var cat = params.get('category') || '';
+var pkg = params.get('package') || '';
+var manifest = null;
+var allPkgs = [];
+var currentIdx = -1;
+var lbIdx = 0;
+var lbImgs = [];
+
+fetch(MANIFEST_URL).then(function(r) { return r.json(); }).then(initPage).catch(function() {
+  document.getElementById('pkgName').textContent = '加载失败';
+});
+
+function initPage(m) {
+  manifest = m;
+  if (!manifest[cat] || !manifest[cat][decodeURIComponent(pkg)]) {
+    document.getElementById('pkgName').textContent = '图包不存在';
+    return;
+  }
+  // Build allPkgs list for prev/next
+  allPkgs = Object.keys(manifest[cat] || {});
+  currentIdx = allPkgs.indexOf(decodeURIComponent(pkg));
+  renderPage();
+}
+
+function renderPage() {
+  var decodedPkg = decodeURIComponent(pkg);
+  var imgs = manifest[cat][decodedPkg];
+  document.getElementById('pkgName').textContent = decodedPkg;
+  document.title = decodedPkg + ' — 摄影作品集';
+  document.getElementById('pkgCount').textContent = (imgs ? imgs.length : 0) + ' 张图片';
+
+  // Build image grid
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  lbImgs = [];
+  (imgs || []).forEach(function(img, i) {
+    var url = 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/images/'
+            + cat + '/' + encodeURIComponent(decodedPkg) + '/' + encodeURIComponent(img);
+    lbImgs.push(url);
+    var el = document.createElement('img');
+    el.src = url;
+    el.alt = '图片 ' + (i+1);
+    el.loading = 'lazy';
+    el.onclick = (function(idx) { return function() { openLightbox(idx); }; })(i);
+    grid.appendChild(el);
+  });
+
+  // Prev/Next
+  var prevLink = document.getElementById('prevLink');
+  var nextLink = document.getElementById('nextLink');
+  var catLink = document.getElementById('catLink');
+  catLink.href = 'gallery.html?category=' + cat;
+  if (currentIdx > 0) {
+    var prevPkg = allPkgs[currentIdx - 1];
+    prevLink.href = 'package.html?category=' + cat + '&package=' + encodeURIComponent(prevPkg);
+    prevLink.style.display = '';
+  } else {
+    prevLink.style.display = 'none';
+  }
+  if (currentIdx < allPkgs.length - 1) {
+    var nextPkg = allPkgs[currentIdx + 1];
+    nextLink.href = 'package.html?category=' + cat + '&package=' + encodeURIComponent(nextPkg);
+    nextLink.style.display = '';
+  } else {
+    nextLink.style.display = 'none';
+  }
+}
+
+/* ── Lightbox ── */
+function openLightbox(idx) {
+  lbIdx = idx;
+  document.getElementById('lbImg').src = lbImgs[idx];
+  document.getElementById('lightbox').classList.add('active');
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+function closeLightbox(e) {
+  if (e.target === document.getElementById('lightbox')) closeLb();
+}
+function lbNav(d) {
+  lbIdx = (lbIdx + d + lbImgs.length) % lbImgs.length;
+  document.getElementById('lbImg').src = lbImgs[lbIdx];
+}
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+</script>
+</body>
+</html>
