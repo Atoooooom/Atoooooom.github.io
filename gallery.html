@@ -178,7 +178,7 @@ function buildGrid() {
     var div = document.createElement('div');
     div.className = 'pkg-item';
     var imgUrl = cover
-      ? 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/images/' + cat + '/' + encodeURIComponent(pkg) + '/' + encodeURIComponent(cover)
+      ? 'https://cdn.jsdelivr.net/gh/Atoooooom/Atoooooom.github.io@main/images/' + cat + '/' + encodeURIComponent(pkg) + '/thumb.jpg'
       : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="%23333"/></svg>';
     div.innerHTML = '<img src="' + imgUrl + '" alt="" loading="lazy"><div class="pkg-info"><div class="pkg-name">' + pkg + '</div><div class="pkg-count">' + (imgs?imgs.length:0) + ' 张图片</div></div>';
     div.onclick = function() { location.href = 'package.html?category=' + cat + '&package=' + encodeURIComponent(pkg); };
